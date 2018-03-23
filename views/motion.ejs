@@ -16,13 +16,21 @@
 
 	<body>
 		<!-- diplay events on screen for DEMO purposes -->
-		<div class="stage"></div> <!-- ENDS .STAGE -->
+		<div class="stage">
+			<h1 style='color:white; line-height:500px; font-size: 90pt;'id="timer"></h1>
+		</div> <!-- ENDS .STAGE -->
+		<!-- add controls in audio tag to see control bar -->
+		<audio id='audio'> 
+			<source src='/static/img/music.mp3' type='audio/mpeg'>
+		</audio>
 		<div id="controls">
 			<img id="left" src="/static/img/arrows/staticLeft.png">
 			<img id="up" src="/static/img/arrows/staticUp.png">
 			<img id="down" src="/static/img/arrows/staticDown.png">
 			<img id="right" src="/static/img/arrows/staticRight.png">
 		</div> <!-- ENDS #CONTROLS -->
+		
+		<button id='start'>Start</button>
 		<script type="text/javascript">
 			//create message container
 			var messageContainer = document.createElement('div');
@@ -199,15 +207,59 @@ $(document).ready(function () {
 		setTimeout fallback.					*/
 
 	// Infinte loop for game play
-	(function animloop() {
+	// (function animloop() {
 
-		requestAnimFrame(animloop);
+	// 	requestAnimFrame(animloop);
 
-		render();
+	// 	render();
 
-	})();// ends (function animloop() )
+	// })();// ends (function animloop() )
 
 
+
+
+
+	$('#start').on('click', function() {
+		i = 5;
+		var game = setInterval(function() {
+			i--;
+			console.log(i)
+			if (i == 4) {
+				$('#timer').html("READY!")	
+			} else if (i > 0) {
+				$('#timer').html(i)
+			} else {
+				$('#timer').html('')
+				$('#start').attr('disabled', true)
+			}
+			if (i == 0) {
+				var counter = 0;
+				var loop = setInterval(function() {
+					counter++
+					console.log("Counter = ", counter)
+					if (counter == 850) {
+						$('#timer').html('3');
+					} else if (counter == 900) {
+						$('#timer').html('2');
+					} else if (counter == 950) {
+						$('#timer').html('1');
+					}
+					if (counter < 1000) {
+						$('#audio')[0].play();
+						render();
+					} else {
+						$('#timer').html('');
+						$('.stage').html('')
+						$('#audio')[0].pause();
+						clearInterval(loop)
+					}
+				}, 20, counter);
+			}
+			if (i == -1) {
+				clearInterval(game);
+			}
+		}, 1000)
+	})
 });// ends $(doc).ready
 
 
@@ -239,31 +291,34 @@ $(document).ready(function () {
 // 	}// ends loop
 
 // });// ends $(doc).keyup
-
+			score = 0;
 			gest.options.subscribeWithCallback(function(gesture) {
 				console.log(gesture.direction)
-
 				for (var i = 0; i < notes.length; i++) {
-					console.log(notes[i].image.position().top);
+					// console.log(notes[i].image.position().top);
+					console.log(score)
 				if (gesture.direction == 'Left' && notes[i].direction == "left") {
 					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
-						console.log("LEFT! "+notes[i].explode());
+						notes[i].explode();
+						score+=10;
 					}			
-				}
-				if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[i].direction == "up") {
+				} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[i].direction == "up") {
 					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						console.log("UP! "+notes[i].explode());
+						notes[i].explode();
+						score+=10;
 					}
-				}
-				if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[i].direction == "down") {
+				} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[i].direction == "down") {
 					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						console.log("DOWN! "+notes[i].explode());
+						notes[i].explode();
+						score+=10;
 					}
-				}
-				if (gesture.direction == 'Right' && notes[i].direction == "right") {
+				} else if (gesture.direction == 'Right' && notes[i].direction == "right") {
 					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						console.log("RIGHT! "+notes[i].explode());
+						notes[i].explode();
+						score+=10;
 					}
+				} else {
+					// score-=10;
 				}
 			}
 				// var message = '';
@@ -284,23 +339,6 @@ $(document).ready(function () {
 
 			gest.start();
 </script>
-		
-
-
-		<div id='container'>
-			<div id='hero' style='top:300px; left:300px;'></div>
-			<div id='enemies'>
-					
-			</div>
-			<div id='bullets'>
-				<div class='bullet' style='top:150px; left:200px;'></div>
-				<div class='bullet' style='top:250px; left:200px;'></div>
-				<div class='bullet' style='top:350px; left:200px;'></div>
-				<div class='bullet' style='top:450px; left:200px;'></div>
-			</div>	
-		</div>
-	
-		<div id='score'>0</div>
 
 		
 	</body>
