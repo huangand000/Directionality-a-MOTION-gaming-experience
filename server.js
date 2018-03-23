@@ -35,6 +35,10 @@ app.get('/motion', function(req, res){
     res.render('motion'); 
 });
 
+app.get('/ddr', function(req, res) {
+    res.render('jsRev');
+})
+
 /*************************/
 /*** INTERESTING STUFF ***/
 /*************************/

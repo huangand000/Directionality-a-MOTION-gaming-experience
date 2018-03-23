@@ -26,7 +26,7 @@ function Arrow(direction) {
 	}
 
 	this.direction = direction;
-	this.image = $("<img src='./arrows/" + direction + ".gif'/>");
+	this.image = $("<img src='/static/img/arrows/" + direction + ".gif'/>");
 
 	this.image.css({
 		position: "absolute",
