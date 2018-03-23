@@ -633,9 +633,9 @@ window.gest = (function (window) {
 				document.body.appendChild(settings.debug.canvas);
 				settings.debug.context = settings.debug.canvas.getContext('2d');
 
-				//settings.debug.canvas.setAttribute('style', 'width: 300px; display: block;');
-				//video.setAttribute('style', 'visibility: visible');
-				//canvas.setAttribute('style', 'visibility: visible');
+				// settings.debug.canvas.setAttribute('style', 'width: 300px; display: block;');
+				// video.setAttribute('style', 'visibility: visible');
+				// canvas.setAttribute('style', 'visibility: visible');
 			} else {
 				settings.debug.canvas.setAttribute('style', 'display: none;');
 				settings.debug.canvas.parentNode.removeChild(settings.debug.canvas);
