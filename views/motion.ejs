@@ -18,18 +18,20 @@
 		<!-- diplay events on screen for DEMO purposes -->
 		<div class="stage">
 			<h1 style='color:white; line-height:500px; font-size: 90pt;'id="timer"></h1>
+			<h1 id='score' style='color: white; position: relative; top: 450px; border-top: 1px solid white; padding-top: 5px;'>0</h1>
+
 		</div> <!-- ENDS .STAGE -->
 		<!-- add controls in audio tag to see control bar -->
 		<audio id='audio'> 
 			<source src='/static/img/music.mp3' type='audio/mpeg'>
 		</audio>
+		
 		<div id="controls">
 			<img id="left" src="/static/img/arrows/staticLeft.png">
 			<img id="up" src="/static/img/arrows/staticUp.png">
 			<img id="down" src="/static/img/arrows/staticDown.png">
 			<img id="right" src="/static/img/arrows/staticRight.png">
 		</div> <!-- ENDS #CONTROLS -->
-		
 		<button id='start'>Start</button>
 		<script type="text/javascript">
 			//create message container
@@ -236,7 +238,7 @@ $(document).ready(function () {
 				var counter = 0;
 				var loop = setInterval(function() {
 					counter++
-					console.log("Counter = ", counter)
+					// console.log("Counter = ", counter)
 					if (counter == 850) {
 						$('#timer').html('3');
 					} else if (counter == 900) {
@@ -294,33 +296,57 @@ $(document).ready(function () {
 			score = 0;
 			gest.options.subscribeWithCallback(function(gesture) {
 				console.log(gesture.direction)
+				var streak = false;
 				for (var i = 0; i < notes.length; i++) {
 					// console.log(notes[i].image.position().top);
 					console.log(score)
-				if (gesture.direction == 'Left' && notes[i].direction == "left") {
-					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
-						notes[i].explode();
-						score+=10;
-					}			
-				} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[i].direction == "up") {
-					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						notes[i].explode();
-						score+=10;
+	
+					$('#score').html(score)
+					if (gesture.direction == 'Left' && notes[i].direction == "left") {
+						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+							console.log("Left: ", streak);
+							if (streak) {
+								score+= 10;
+							}
+							streak = true;
+							notes[i].explode();
+							score+=10;
+						}
+					} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[i].direction == "up") {
+						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {	
+							console.log("Up: ", streak);
+							if (streak) {
+								score+= 10;
+							}
+							streak = true;			
+							notes[i].explode();
+							score+=10;
+						} 
+					} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[i].direction == "down") {
+						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+							console.log("Down: ", streak);
+							if (streak) {
+								score+= 10;
+							}	
+							streak = true;		
+							notes[i].explode();
+							score+=10;
+						} 
+					} else if (gesture.direction == 'Right' && notes[i].direction == "right") {
+						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+							console.log("Right: ", streak);
+							if (streak) {
+								score+= 10;
+							}
+							streak = true;				
+							notes[i].explode();
+							score+=10;
+						} 
+					} else {
+						console.log(gesture.direction)
+						// score-=10;
 					}
-				} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[i].direction == "down") {
-					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						notes[i].explode();
-						score+=10;
-					}
-				} else if (gesture.direction == 'Right' && notes[i].direction == "right") {
-					if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-						notes[i].explode();
-						score+=10;
-					}
-				} else {
-					// score-=10;
 				}
-			}
 				// var message = '';
 				// if (gesture.direction) {
 				// 	message = gesture.direction;
