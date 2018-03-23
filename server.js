@@ -31,7 +31,9 @@ app.get('/', function(req, res){
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
 
-
+app.get('/motion', function(req, res){ 
+    res.render('motion'); 
+});
 
 /*************************/
 /*** INTERESTING STUFF ***/
