@@ -126,9 +126,8 @@ Arrow.prototype.destroy = function() {
 
 // Explodes arrow when hit
 Arrow.prototype.explode = function() {
-
 	this.image.remove();
-
+	notes.splice(0,1);
 };
 
 
@@ -219,8 +218,6 @@ $(document).ready(function () {
 
 
 
-
-
 	$('#start').on('click', function() {
 		i = 5;
 		var game = setInterval(function() {
@@ -293,59 +290,76 @@ $(document).ready(function () {
 // 	}// ends loop
 
 // });// ends $(doc).keyup
-			score = 0;
+			var score = 0;
+			var streak = false;
 			gest.options.subscribeWithCallback(function(gesture) {
 				console.log(gesture.direction)
-				var streak = false;
-				for (var i = 0; i < notes.length; i++) {
-					// console.log(notes[i].image.position().top);
-					console.log(score)
-	
-					$('#score').html(score)
-					if (gesture.direction == 'Left' && notes[i].direction == "left") {
-						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+				console.log(score)	
+				console.log(notes)
+				$('#timer').html('');
+				$('#score').html(score)
+				if(notes[0]) {
+					if (gesture.direction == 'Left' && notes[0].direction == "left") {
+						if (notes[0].image.position().top > 5 && notes[0].image.position().top < 20) {
+							$('#timer').html('PERFECT')
+							score +=20
+						}
+						if (notes[0].image.position().top > 0 && notes[0].image.position().top < 40) {
 							console.log("Left: ", streak);
 							if (streak) {
 								score+= 10;
 							}
 							streak = true;
-							notes[i].explode();
+							notes[0].explode();
 							score+=10;
+						} else {
+							streak = false;
+							score -=10;
 						}
-					} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[i].direction == "up") {
-						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {	
+					} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
+						if (notes[0].image.position().top > 0 && notes[0].image.position().top < 40) {	
 							console.log("Up: ", streak);
 							if (streak) {
 								score+= 10;
 							}
 							streak = true;			
-							notes[i].explode();
+							notes[0].explode();
 							score+=10;
-						} 
-					} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[i].direction == "down") {
-						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+						} else {
+							streak = false;
+							score -=10;
+						}
+					} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
+						if (notes[0].image.position().top > 0 && notes[0].image.position().top < 40) {
 							console.log("Down: ", streak);
 							if (streak) {
 								score+= 10;
 							}	
 							streak = true;		
-							notes[i].explode();
+							notes[0].explode();
 							score+=10;
-						} 
-					} else if (gesture.direction == 'Right' && notes[i].direction == "right") {
-						if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+						} else {
+							streak = false;
+							score -=10;
+						}
+					} else if (gesture.direction == 'Right' && notes[0].direction == "right") {
+						if (notes[0].image.position().top > 0 && notes[0].image.position().top < 40) {
 							console.log("Right: ", streak);
 							if (streak) {
 								score+= 10;
 							}
 							streak = true;				
-							notes[i].explode();
+							notes[0].explode();
 							score+=10;
-						} 
+						} else {
+							streak = false;
+							score -=10;
+						}
 					} else {
 						console.log(gesture.direction)
-						// score-=10;
-					}
+						$("#timer").html('MISS')
+						score-=10;
+					} 
 				}
 				// var message = '';
 				// if (gesture.direction) {
@@ -361,7 +375,7 @@ $(document).ready(function () {
 				// window.setTimeout(function() {
 				// 	messageContainer.setAttribute('style', 'display: none;');
 				// }, 3000);
-			});
+			}, streak);
 
 			gest.start();
 </script>
