@@ -12,9 +12,8 @@ var http = require('http');
 var bodyParser = require('body-parser')
 var app = express()
 var server = http.createServer(app)
-var io  = require('socket.io').listen(server);
 var path = require("path");
-
+var io  = require('socket.io').listen(server);
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
@@ -42,6 +41,9 @@ app.get('/ddr', function(req, res) {
 app.get('/chart', function(req, res) {
     res.render('chart');
 })
+
+
+
 
 /*************************/
 /*** INTERESTING STUFF ***/
@@ -133,4 +135,4 @@ io.sockets.on('connection', function (socket) {
             sockets[peer_id].emit('sessionDescription', {'peer_id': socket.id, 'session_description': session_description});
         }
     });
-});
+ });
