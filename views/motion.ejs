@@ -17,38 +17,86 @@
 	</head>
 
 	<body>
-		<!-- diplay events on screen for DEMO purposes -->
-		<div class="stage">
+		<div class="stage" style='display: inline-block'>
 			<h1 style='color:white; line-height:500px; font-size: 90pt;'id="timer"></h1>
 			<h1 style='color:red; line-height:500px; font-size: 70pt;'id="type"></h1>
 			<h1 id='score' style='color: white; position: relative; top: 450px; border-top: 1px solid white; padding-top: 5px;'>0</h1>
-		</div> <!-- ENDS .STAGE -->
+		</div> 
 		<!-- add controls in audio tag to see control bar -->
 		<audio id='audio'> 
 			<source src='/static/img/music.mp3' type='audio/mpeg'>
 		</audio>
 		
-		<div id="controls">
+		<div id="controls" style='width:300px;'>
 			<img id="left" src="/static/img/arrows/staticLeft.png">
 			<img id="up" src="/static/img/arrows/staticUp.png">
 			<img id="down" src="/static/img/arrows/staticDown.png">
 			<img id="right" src="/static/img/arrows/staticRight.png">
-		</div> <!-- ENDS #CONTROLS -->
-		<div id='scoreboard'></div>
-		<select id='difficulty'>
-			<option>Easy</option>
-			<option>Medium</option>
-			<option>Hard</option>
-			<option>Legendary</option>
-		</select>
-		<select id='mode'>
-			<option>Normal</option>
-			<option>Motion</option>
-			<option>Voice</option>
-		</select>
-		<button id='start'>Start</button>
-		<canvas id="myChart" width="200" height="200"></canvas>
+		</div> 
+		<div id='buttons' style='display: inline-block; width: 200px; position: absolute; bottom: 400px; left: 600px;'>
+			<div id='scoreboard'></div>
+			<select id='difficulty'>
+				<option>easy</option>
+				<option>medium</option>
+				<option>hard</option>
+				<option>legendary</option>
+			</select>
+			<select id='mode'>
+				<option>normal</option>
+				<option>motion</option>
+			</select>
+			<button id='start'>Start</button>
+		</div>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
 
+		<script>
+			$(document).ready(function() {
+				var socket = io.connect();
+				var name = prompt('What is your name?');
+				socket.emit('new_user', {name: name})
+			})
+		</script>
+		<script> 
+		var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+				recognition.lang = 'en-US';
+				recognition.interimResults = false;
+				recognition.maxAlternatives = 5;
+				// recognition.continuous = true;
+				recognition.start();
+				recognition.onresult = function(event) {
+					console.log(event.results[event.results.length - 1][0].transcript);
+					if (event.results[event.results.length - 1][0].transcript == 'difficulty easy'|| 
+						event.results[event.results.length - 1][0].transcript == 'difficulty medium'|| 
+						event.results[event.results.length - 1][0].transcript == 'difficulty hard'|| 
+						event.results[event.results.length - 1][0].transcript == 'difficulty legendary'
+						) {
+							console.log(event.results[event.results.length - 1][0].transcript);
+
+							var arr = event.results[event.results.length - 1][0].transcript.split(' ');
+							console.log(arr)
+						$("#difficulty").val(arr[1])
+					}
+					if (event.results[event.results.length - 1][0].transcript == 'normal mode'|| 
+						event.results[event.results.length - 1][0].transcript == 'motion mode'
+						) {
+							var arr = event.results[event.results.length - 1][0].transcript.split(' ');
+
+						$("#mode").val(arr[0])
+					}
+					if (event.results[event.results.length - 1][0].transcript == 'start game'
+						) {
+							$('#start').click();
+					}
+					// if (event.results[event.results.length - 1][0].transcript == 'search Google'
+					// 	) {
+					// 		var arr = event.results[event.results.length - 1][0].transcript.split(' ');
+					// 	window.location.url = arr[1]
+					// }
+					recognition.onend = function() {
+						recognition.start();
+					}
+				}
+		</script>
 		<script type="text/javascript">
 			//create message container
 			var messageContainer = document.createElement('div');
@@ -214,22 +262,22 @@ $(document).ready(function () {
 			'BAD': 0,
 			'MISS': 0
 	}
-	// shim layer with setTimeout fallback
-	window.requestAnimFrame = (function() {
+	// // shim layer with setTimeout fallback
+	// window.requestAnimFrame = (function() {
 
-		return window.requestAnimationFrame ||
+	// 	return window.requestAnimationFrame ||
 
-		window.webkitRequestAnimationFrame ||
+	// 	window.webkitRequestAnimationFrame ||
 
-		window.mozRequestAnimationFrame ||
+	// 	window.mozRequestAnimationFrame ||
 
-		function(callback) {
+	// 	function(callback) {
 
-			window.setTimeout(callback, 40 / 75);
+	// 		window.setTimeout(callback, 40 / 75);
 
-		};
+	// 	};
 
-	})();
+	// })();
 
 	/*	place the rAF *before* the render() 
 		to assure as close to 60fps with the 
@@ -273,16 +321,16 @@ $(document).ready(function () {
 					}
 					if (counter < 1000) {
 						$('#audio')[0].play();
-						if ($('#difficulty').val() == 'Easy') {
+						if ($('#difficulty').val() == 'easy') {
 							spawnRate = 100;
 							speed = '-=2px'
-						} else if ($('#difficulty').val() == 'Medium') {
+						} else if ($('#difficulty').val() == 'medium') {
 							spawnRate = 40;
 							speed = '-=4px'
-						} else if ($('#difficulty').val() == 'Hard') {
+						} else if ($('#difficulty').val() == 'hard') {
 							spawnRate = 20;
 							speed = '-=6px'
-						} else if ($('#difficulty').val() == 'Legendary') {
+						} else if ($('#difficulty').val() == 'legendary') {
 							spawnRate = 10;
 							speed = '-=10px'
 						}
@@ -291,7 +339,9 @@ $(document).ready(function () {
 						$('#timer').html('');
 						$('.stage').html('')
 						$('#audio')[0].pause();
+						$('#audio')[0].currentTime = 0;
 						clearInterval(loop)
+<<<<<<< HEAD
 						// create chart
 						var ctx = document.getElementById("myChart").getContext('2d');
 						var myChart = new Chart(ctx, {
@@ -325,6 +375,9 @@ $(document).ready(function () {
 								maintainAspectRatio: false,
 							}
 						});
+=======
+						$('#start').attr('disabled', false);
+>>>>>>> 1bb797e6a49d9eede783a6cd91f1adb98de310d8
 					}
 				}, 20, counter);
 			}
@@ -334,166 +387,230 @@ $(document).ready(function () {
 		}, 1000)
 	})
 	$('#start').on('click', function() {
-				if ($('#mode').val() == 'Motion') {
-					function hitbox (type, points) {
-						$('#type').html(type)
-						if (streak) {
-							score+= points;
-						}
-						hitTypes[type]++;
-						streak = true;
-						notes[0].explode();
-						score+=10;
+				function hitbox (type, points) {
+					$('#type').html(type)
+					if (streak) {
+						score+= points;
 					}
+					hitTypes[type]++;
+					streak = true;
+					notes[0].explode();
+					score+=10;
+				}
+			if ($('#mode').val() == 'motion') {
+				var score = 0;
+				var streak = false;
+				gest.options.subscribeWithCallback(function(gesture) {
+					$('#scoreboard').html(
+					'<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
+					'<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
+					'<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
+					'<p>COOL: '+ hitTypes['COOL'] + '</p>' +
+					'<p>BAD: '+ hitTypes['BAD'] + '</p>' +
+					'<p>MISS: '+ hitTypes['MISS'] + '</p>' 
+					)	
+					console.log(gesture.direction)
+					console.log(score)	
+					console.log(notes)
+					$('#timer').html('');
+					$("#type").html('')
+					$('#score').html(score)
 
-					hitTypes = {
-						'PERFECT': 0,
-						'GREAT': 0,
-						'GOOD': 0,
-						'COOL': 0,
-						'BAD': 0,
-						'MISS': 0
+					if(notes[0]) {
+						if (gesture.direction == 'Left' && notes[0].direction == "left") {
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}
+						} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}
+						} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}
+						} else if (gesture.direction == 'Right' && notes[0].direction == "right") {
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								hitTypes['MISS']++;
+								$("#type").html('MISS')
+								streak = false;
+								score -=10;
+							}
+						} else {
+							console.log(gesture.direction)
+							hitTypes['MISS']++;
+							$("#type").html('MISS')
+							score-=10;
+						} 
 					}
+					// var message = '';
+					// if (gesture.direction) {
+					// 	message = gesture.direction;
+					// 	console.log(gesture.direction)
+					// } else {
+					// 	message = gesture.error.message;
+					// } 
 
-					var score = 0;
-					var streak = false;
-					gest.options.subscribeWithCallback(function(gesture) {
-						$('#scoreboard').html(
+					// messageContainer.innerHTML = '<p style=\"margin:0\">' + message + '</p>';
+					// messageContainer.setAttribute('style', messageContainerStyle);
+
+					// window.setTimeout(function() {
+					// 	messageContainer.setAttribute('style', 'display: none;');
+					// }, 3000);
+				}, streak);
+				gest.start();
+			} else if ($('#mode').val() == 'normal') {
+				$('#scoreboard').html(
 						'<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
 						'<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
 						'<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
 						'<p>COOL: '+ hitTypes['COOL'] + '</p>' +
 						'<p>BAD: '+ hitTypes['BAD'] + '</p>' +
 						'<p>MISS: '+ hitTypes['MISS'] + '</p>' 
-						)	
-						console.log(gesture.direction)
-						console.log(score)	
-						console.log(notes)
-						$('#timer').html('');
-						$("#type").html('')
-						$('#score').html(score)
-
-						if(notes[0]) {
-							if (gesture.direction == 'Left' && notes[0].direction == "left") {
-								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-									hitbox('PERFECT', 20);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-									hitbox('GREAT', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-									hitbox('GOOD', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-									hitbox('COOL', 5);
-								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-									hitbox('BAD', 0);
-								} else	{
-									$("#type").html('MISS')
-									hitTypes['MISS']++;
-									streak = false;
-									score -=10;
-								}
-							} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
-								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-									hitbox('PERFECT', 20);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-									hitbox('GREAT', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-									hitbox('GOOD', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-									hitbox('COOL', 5);
-								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-									hitbox('BAD', 0);
-								} else	{
-									$("#type").html('MISS')
-									hitTypes['MISS']++;
-									streak = false;
-									score -=10;
-								}
-							} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
-								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-									hitbox('PERFECT', 20);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-									hitbox('GREAT', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-									hitbox('GOOD', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-									hitbox('COOL', 5);
-								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-									hitbox('BAD', 0);
-								} else	{
-									$("#type").html('MISS')
-									hitTypes['MISS']++;
-									streak = false;
-									score -=10;
-								}
-							} else if (gesture.direction == 'Right' && notes[0].direction == "right") {
-								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-									hitbox('PERFECT', 20);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-									hitbox('GREAT', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-									hitbox('GOOD', 10);
-								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-									hitbox('COOL', 5);
-								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-									hitbox('BAD', 0);
-								} else	{
-									hitTypes['MISS']++;
-									$("#type").html('MISS')
-									streak = false;
-									score -=10;
-								}
-							} else {
-								console.log(gesture.direction)
-								hitTypes['MISS']++;
+				)	
+				$(document).keydown( function(event) {
+					$('#timer').html('');
+					$("#type").html('')
+					$('#score').html(score)
+					$('#scoreboard').html(
+						'<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
+						'<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
+						'<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
+						'<p>COOL: '+ hitTypes['COOL'] + '</p>' +
+						'<p>BAD: '+ hitTypes['BAD'] + '</p>' +
+						'<p>MISS: '+ hitTypes['MISS'] + '</p>' 
+					)	
+					if(notes[0]) {
+						if (event.keyCode == 37 && notes[0].direction == "left") {
+							event.preventDefault();
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
 								$("#type").html('MISS')
-								score-=10;
-							} 
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}			
 						}
-						// var message = '';
-						// if (gesture.direction) {
-						// 	message = gesture.direction;
-						// 	console.log(gesture.direction)
-						// } else {
-						// 	message = gesture.error.message;
-						// } 
-
-						// messageContainer.innerHTML = '<p style=\"margin:0\">' + message + '</p>';
-						// messageContainer.setAttribute('style', messageContainerStyle);
-
-						// window.setTimeout(function() {
-						// 	messageContainer.setAttribute('style', 'display: none;');
-						// }, 3000);
-					}, streak);
-					gest.start();
-				} else if ($('#mode').val() == 'Normal') {
-					$(document).keydown( function(event) {
-						for (var i = 0; i < notes.length; i++) {
-								console.log(notes[i].image.position().top);
-							if (event.keyCode == 37 && notes[i].direction == "left") {
-								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
-									console.log("LEFT! "+notes[i].explode());
-								}			
-							}
-							if (event.keyCode == 38 && notes[i].direction == "up") {
-								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-									console.log("UP! "+notes[i].explode());
-								}
-							}
-							if (event.keyCode == 40 && notes[i].direction == "down") {
-								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-									console.log("DOWN! "+notes[i].explode());
-								}
-							}
-							if (event.keyCode == 39 && notes[i].direction == "right") {
-								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-									console.log("RIGHT! "+notes[i].explode());
-								}
-							}
-						}// ends loop
-
-					});
-				}
-			})
+						if (event.keyCode == 38 && notes[0].direction == "up") {
+							event.preventDefault();
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}	
+						}
+						if (event.keyCode == 40 && notes[0].direction == "down") {
+							event.preventDefault();
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}	
+						}
+						if (event.keyCode == 39 && notes[0].direction == "right") {
+							event.preventDefault();
+							if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+								hitbox('PERFECT', 20);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+								hitbox('GREAT', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+								hitbox('GOOD', 10);
+							} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+								hitbox('COOL', 5);
+							} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+								hitbox('BAD', 0);
+							} else	{
+								$("#type").html('MISS')
+								hitTypes['MISS']++;
+								streak = false;
+								score -=10;
+							}	
+						}
+					}
+				});
+			} 
+					
+		})
 });
 
 
