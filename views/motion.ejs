@@ -8,6 +8,8 @@
 		<meta name = "author" content = "Hadi Michael (http://hadi.io)">
 		
 		<!-- include js -->
+		<!-- Chart CDN -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 		<script src='/static/js/gest.js'></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<!-- <script src="/static/js/jsRev.js" type="text/javascript"></script> -->
@@ -40,6 +42,7 @@
 			<option>Legendary</option>
 		</select>
 		<button id='start'>Start</button>
+		<canvas id="myChart" width="200" height="200"></canvas>
 
 		<script type="text/javascript">
 			//create message container
@@ -190,6 +193,14 @@ function render() {
 
 // jQuery to animate arrows //
 $(document).ready(function () {
+	hitTypes = {
+		'PERFECT': 0,
+		'GREAT': 0,
+		'GOOD': 0,
+		'COOL': 0,
+		'BAD': 0,
+		'MISS': 0
+	}
 
 	// shim layer with setTimeout fallback
 	window.requestAnimFrame = (function() {
@@ -256,6 +267,39 @@ $(document).ready(function () {
 						$('.stage').html('')
 						$('#audio')[0].pause();
 						clearInterval(loop)
+						// create chart
+						var ctx = document.getElementById("myChart").getContext('2d');
+						var myChart = new Chart(ctx, {
+							type: 'doughnut',
+							data: {
+								labels: ["Miss", "Bad", "Cool", "Good", "Great", "Perfect"],
+								datasets: [{
+									label: '# of Votes',
+									data: [hitTypes['MISS'], hitTypes['BAD'], hitTypes['COOL'], hitTypes['GOOD'],hitTypes['GREAT'], hitTypes['PERFECT']],
+									backgroundColor: [
+										'rgb(124, 121, 122, 0.2)',
+										'rgba(54, 162, 235, 0.2)',
+										'rgba(255, 206, 86, 0.2)',
+										'rgba(255, 99, 132, 0.2)',
+										'rgba(75, 192, 192, 0.2)',
+										'rgba(153, 102, 255, 0.2)',
+									],
+									borderColor: [
+										'rgb(124, 121, 122, 1)',
+										'rgba(54, 162, 235, 1)',
+										'rgba(255, 206, 86, 1)',
+										'rgba(255, 99, 132, 1)',
+										'rgba(75, 192, 192, 1)',
+										'rgba(153, 102, 255, 1)',
+									],
+									borderWidth: 1
+								}]
+							},
+							options: {
+								responsive: true,
+								maintainAspectRatio: false,
+							}
+						});
 					}
 				}, 20, counter);
 			}
@@ -306,14 +350,14 @@ $(document).ready(function () {
 				score+=10;
 			}
 
-			hitTypes = {
-				'PERFECT': 0,
-				'GREAT': 0,
-				'GOOD': 0,
-				'COOL': 0,
-				'BAD': 0,
-				'MISS': 0
-			}
+			// hitTypes = {
+			// 	'PERFECT': 0,
+			// 	'GREAT': 0,
+			// 	'GOOD': 0,
+			// 	'COOL': 0,
+			// 	'BAD': 0,
+			// 	'MISS': 0
+			// }
 
 			var score = 0;
 			var streak = false;
