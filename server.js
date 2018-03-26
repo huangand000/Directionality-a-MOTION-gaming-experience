@@ -14,6 +14,7 @@ var app = express()
 var server = http.createServer(app)
 var io  = require('socket.io').listen(server);
 var path = require("path");
+
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
@@ -37,6 +38,9 @@ app.get('/motion', function(req, res){
 
 app.get('/ddr', function(req, res) {
     res.render('jsRev');
+})
+app.get('/chart', function(req, res) {
+    res.render('chart');
 })
 
 /*************************/
