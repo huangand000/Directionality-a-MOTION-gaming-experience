@@ -33,11 +33,16 @@
 			<img id="right" src="/static/img/arrows/staticRight.png">
 		</div> <!-- ENDS #CONTROLS -->
 		<div id='scoreboard'></div>
-		<select>
+		<select id='difficulty'>
 			<option>Easy</option>
-			<option>Normal</option>
+			<option>Medium</option>
 			<option>Hard</option>
 			<option>Legendary</option>
+		</select>
+		<select id='mode'>
+			<option>Normal</option>
+			<option>Motion</option>
+			<option>Voice</option>
 		</select>
 		<button id='start'>Start</button>
 
@@ -114,10 +119,10 @@ function Arrow(direction) {
 }// ends CLASS Arrow
 
 // To enable animating the arrows
-Arrow.prototype.step = function() {
+Arrow.prototype.step = function(speed) {
 
 	// Controls the speed of the arrows
-	this.image.css("top", "-=2px");
+	this.image.css("top", speed);
 
 };
 
@@ -144,7 +149,7 @@ var randNum = 0;
 var frame = 0;
 
 // Determines the speed of notes
-var arrowSpawnRate = 40;
+var arrowSpawnRate = 10;
 
 
 // Random generator for arrows
@@ -166,14 +171,13 @@ function randomGen() {
 
 
 // Render function //
-function render() {
+function render(arrowSpawnRate, speed) {
 	if (frame++ % arrowSpawnRate === 0) {
 		randomGen();
 	}
-
 	// Animate arrows showering down //
 	for (var i = 0; i < notes.length; i++ ) {
-		notes[i].step();
+		notes[i].step(speed);
 
 		// Check for cleanup
 		if (notes[i].image.position().top < -10) {
@@ -250,7 +254,20 @@ $(document).ready(function () {
 					}
 					if (counter < 1000) {
 						$('#audio')[0].play();
-						render();
+						if ($('#difficulty').val() == 'Easy') {
+							spawnRate = 100;
+							speed = '-=2px'
+						} else if ($('#difficulty').val() == 'Medium') {
+							spawnRate = 40;
+							speed = '-=4px'
+						} else if ($('#difficulty').val() == 'Hard') {
+							spawnRate = 20;
+							speed = '-=6px'
+						} else if ($('#difficulty').val() == 'Legendary') {
+							spawnRate = 10;
+							speed = '-=10px'
+						}
+						render(spawnRate, speed);
 					} else {
 						$('#timer').html('');
 						$('.stage').html('')
@@ -269,162 +286,194 @@ $(document).ready(function () {
 
 
 // Listening for when the key is pressed
-// $(document).keydown( function(event) {
-// 	for (var i = 0; i < notes.length; i++) {
-// 			console.log(notes[i].image.position().top);
-// 		if (event.keyCode == 37 && notes[i].direction == "left") {
-// 			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
-// 				console.log("LEFT! "+notes[i].explode());
-// 			}			
-// 		}
-// 		if (event.keyCode == 38 && notes[i].direction == "up") {
-// 			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-// 				console.log("UP! "+notes[i].explode());
-// 			}
-// 		}
-// 		if (event.keyCode == 40 && notes[i].direction == "down") {
-// 			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-// 				console.log("DOWN! "+notes[i].explode());
-// 			}
-// 		}
-// 		if (event.keyCode == 39 && notes[i].direction == "right") {
-// 			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
-// 				console.log("RIGHT! "+notes[i].explode());
-// 			}
-// 		}
-// 	}// ends loop
-
-// });// ends $(doc).keyup
-			function hitbox (type, points) {
-				$('#type').html(type)
-				if (streak) {
-					score+= points;
-				}
-				hitTypes[type]++;
-				streak = true;
-				notes[0].explode();
-				score+=10;
+$(document).keydown( function(event) {
+	for (var i = 0; i < notes.length; i++) {
+			console.log(notes[i].image.position().top);
+		if (event.keyCode == 37 && notes[i].direction == "left") {
+			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+				console.log("LEFT! "+notes[i].explode());
+			}			
+		}
+		if (event.keyCode == 38 && notes[i].direction == "up") {
+			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+				console.log("UP! "+notes[i].explode());
 			}
-
-			hitTypes = {
-				'PERFECT': 0,
-				'GREAT': 0,
-				'GOOD': 0,
-				'COOL': 0,
-				'BAD': 0,
-				'MISS': 0
+		}
+		if (event.keyCode == 40 && notes[i].direction == "down") {
+			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+				console.log("DOWN! "+notes[i].explode());
 			}
+		}
+		if (event.keyCode == 39 && notes[i].direction == "right") {
+			if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+				console.log("RIGHT! "+notes[i].explode());
+			}
+		}
+	}// ends loop
 
-			var score = 0;
-			var streak = false;
-			gest.options.subscribeWithCallback(function(gesture) {
-				$('#scoreboard').html(
-				'<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
-				'<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
-				'<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
-				'<p>COOL: '+ hitTypes['COOL'] + '</p>' +
-				'<p>BAD: '+ hitTypes['BAD'] + '</p>' +
-				'<p>MISS: '+ hitTypes['MISS'] + '</p>' 
-				)	
-				console.log(gesture.direction)
-				console.log(score)	
-				console.log(notes)
-				$('#timer').html('');
-				$("#type").html('')
-				$('#score').html(score)
-				if(notes[0]) {
-					if (gesture.direction == 'Left' && notes[0].direction == "left") {
-						if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-							hitbox('PERFECT', 20);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-							hitbox('GREAT', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-							hitbox('GOOD', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-							hitbox('COOL', 5);
-						} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-							hitbox('BAD', 0);
-						} else	{
-							$("#type").html('MISS')
-							hitTypes['MISS']++;
-							streak = false;
-							score -=10;
+});// ends $(doc).keyup
+
+			$('#start').on('click', function() {
+				if ($('#mode').val() == 'Motion') {
+					function hitbox (type, points) {
+						$('#type').html(type)
+						if (streak) {
+							score+= points;
 						}
-					} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
-						if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-							hitbox('PERFECT', 20);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-							hitbox('GREAT', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-							hitbox('GOOD', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-							hitbox('COOL', 5);
-						} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-							hitbox('BAD', 0);
-						} else	{
-							$("#type").html('MISS')
-							hitTypes['MISS']++;
-							streak = false;
-							score -=10;
-						}
-					} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
-						if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-							hitbox('PERFECT', 20);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-							hitbox('GREAT', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-							hitbox('GOOD', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-							hitbox('COOL', 5);
-						} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-							hitbox('BAD', 0);
-						} else	{
-							$("#type").html('MISS')
-							hitTypes['MISS']++;
-							streak = false;
-							score -=10;
-						}
-					} else if (gesture.direction == 'Right' && notes[0].direction == "right") {
-						if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-							hitbox('PERFECT', 20);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-							hitbox('GREAT', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-							hitbox('GOOD', 10);
-						} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-							hitbox('COOL', 5);
-						} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-							hitbox('BAD', 0);
-						} else	{
-							hitTypes['MISS']++;
-							$("#type").html('MISS')
-							streak = false;
-							score -=10;
-						}
-					} else {
+						hitTypes[type]++;
+						streak = true;
+						notes[0].explode();
+						score+=10;
+					}
+
+					hitTypes = {
+						'PERFECT': 0,
+						'GREAT': 0,
+						'GOOD': 0,
+						'COOL': 0,
+						'BAD': 0,
+						'MISS': 0
+					}
+
+					var score = 0;
+					var streak = false;
+					gest.options.subscribeWithCallback(function(gesture) {
+						$('#scoreboard').html(
+						'<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
+						'<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
+						'<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
+						'<p>COOL: '+ hitTypes['COOL'] + '</p>' +
+						'<p>BAD: '+ hitTypes['BAD'] + '</p>' +
+						'<p>MISS: '+ hitTypes['MISS'] + '</p>' 
+						)	
 						console.log(gesture.direction)
-						hitTypes['MISS']++;
-						$("#type").html('MISS')
-						score-=10;
-					} 
+						console.log(score)	
+						console.log(notes)
+						$('#timer').html('');
+						$("#type").html('')
+						$('#score').html(score)
+
+						if(notes[0]) {
+							if (gesture.direction == 'Left' && notes[0].direction == "left") {
+								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+									hitbox('PERFECT', 20);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+									hitbox('GREAT', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+									hitbox('GOOD', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+									hitbox('COOL', 5);
+								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+									hitbox('BAD', 0);
+								} else	{
+									$("#type").html('MISS')
+									hitTypes['MISS']++;
+									streak = false;
+									score -=10;
+								}
+							} else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
+								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+									hitbox('PERFECT', 20);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+									hitbox('GREAT', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+									hitbox('GOOD', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+									hitbox('COOL', 5);
+								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+									hitbox('BAD', 0);
+								} else	{
+									$("#type").html('MISS')
+									hitTypes['MISS']++;
+									streak = false;
+									score -=10;
+								}
+							} else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
+								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+									hitbox('PERFECT', 20);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+									hitbox('GREAT', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+									hitbox('GOOD', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+									hitbox('COOL', 5);
+								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+									hitbox('BAD', 0);
+								} else	{
+									$("#type").html('MISS')
+									hitTypes['MISS']++;
+									streak = false;
+									score -=10;
+								}
+							} else if (gesture.direction == 'Right' && notes[0].direction == "right") {
+								if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+									hitbox('PERFECT', 20);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+									hitbox('GREAT', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+									hitbox('GOOD', 10);
+								} else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+									hitbox('COOL', 5);
+								} else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+									hitbox('BAD', 0);
+								} else	{
+									hitTypes['MISS']++;
+									$("#type").html('MISS')
+									streak = false;
+									score -=10;
+								}
+							} else {
+								console.log(gesture.direction)
+								hitTypes['MISS']++;
+								$("#type").html('MISS')
+								score-=10;
+							} 
+						}
+						// var message = '';
+						// if (gesture.direction) {
+						// 	message = gesture.direction;
+						// 	console.log(gesture.direction)
+						// } else {
+						// 	message = gesture.error.message;
+						// } 
+
+						// messageContainer.innerHTML = '<p style=\"margin:0\">' + message + '</p>';
+						// messageContainer.setAttribute('style', messageContainerStyle);
+
+						// window.setTimeout(function() {
+						// 	messageContainer.setAttribute('style', 'display: none;');
+						// }, 3000);
+					}, streak);
+					gest.start();
+				} else if ($('#mode').val() == 'Normal') {
+					$(document).keydown( function(event) {
+						for (var i = 0; i < notes.length; i++) {
+								console.log(notes[i].image.position().top);
+							if (event.keyCode == 37 && notes[i].direction == "left") {
+								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {
+									console.log("LEFT! "+notes[i].explode());
+								}			
+							}
+							if (event.keyCode == 38 && notes[i].direction == "up") {
+								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+									console.log("UP! "+notes[i].explode());
+								}
+							}
+							if (event.keyCode == 40 && notes[i].direction == "down") {
+								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+									console.log("DOWN! "+notes[i].explode());
+								}
+							}
+							if (event.keyCode == 39 && notes[i].direction == "right") {
+								if (notes[i].image.position().top > 0 && notes[i].image.position().top < 40) {				
+									console.log("RIGHT! "+notes[i].explode());
+								}
+							}
+						}// ends loop
+
+					});
 				}
-				// var message = '';
-				// if (gesture.direction) {
-				// 	message = gesture.direction;
-				// 	console.log(gesture.direction)
-				// } else {
-				// 	message = gesture.error.message;
-				// } 
-
-				// messageContainer.innerHTML = '<p style=\"margin:0\">' + message + '</p>';
-				// messageContainer.setAttribute('style', messageContainerStyle);
-
-				// window.setTimeout(function() {
-				// 	messageContainer.setAttribute('style', 'display: none;');
-				// }, 3000);
-			}, streak);
-
-			gest.start();
+			})
 </script>
 
 		
