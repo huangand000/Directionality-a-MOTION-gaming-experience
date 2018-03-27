@@ -9,14 +9,39 @@ var PORT = 8000;
 /*************/
 var express = require('express');
 var http = require('http');
-var bodyParser = require('body-parser')
 var app = express()
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: true}));
+const session = require('express-session');
+app.use(session({secret: 'codingdojo'}));
 var server = http.createServer(app)
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/ddrdb');
+mongoose.Promise = global.Promise
 var path = require("path");
 var io  = require('socket.io').listen(server);
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
+
+var Schema = mongoose.Schema;
+var UserSchema = mongoose.Schema({
+    user_name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    games: [{
+        gameNumber: Number,
+        perfect: Number,
+        great: Number,
+        good: Number,
+        cool: Number,
+        bad: Number,
+    }]
+}, {timestamps: true})
+mongoose.model('User', UserSchema);
+var User = mongoose.model('User')
 
 //io.set('log level', 2);
 
@@ -26,13 +51,28 @@ server.listen(PORT, null, function() {
 //app.use(express.bodyParser());
 
 app.get('/', function(req, res){ 
-    res.render('client'); 
+    res.render('home'); 
 });
+
+app.post('/create', function(req, res) {
+    User.create(req.body, function(err) {
+        if (err) {
+            console.log(req.body.user_name + " already exists")
+            res.redirect('/')
+        } else {
+            req.session.user_name = req.body.user_name;
+            console.log(req.session.user_name)
+            res.redirect('motion/' + req.session.user_name)
+        }
+    })
+    console.log(req.body)
+})
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
 
-app.get('/motion', function(req, res){ 
-    res.render('motion'); 
+app.get('/motion/:user_name', function(req, res){ 
+    console.log(req.params.user_name)
+    res.render('motion', req.params.user_name); 
 });
 
 app.get('/ddr', function(req, res) {

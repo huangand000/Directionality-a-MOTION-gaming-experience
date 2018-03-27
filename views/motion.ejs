@@ -47,22 +47,12 @@
 			</select>
 			<button id='start'>Start</button>
 		</div>
-<<<<<<< HEAD
 
 
-=======
 		<canvas id="myChart" width="400" height="400"></canvas>
 
 		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
 
-		<script>
-			$(document).ready(function() {
-				var socket = io.connect();
-				var name = prompt('What is your name?');
-				socket.emit('new_user', {name: name})
-			})
-		</script>
->>>>>>> f68192866dbbdf6bb6c59ba3c69d4c45fb4e5c26
 		<script> 
 		var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 				recognition.lang = 'en-US';
