@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
     var game = new Game();
-    
+    var arrowManager = new ArrowManager();
     var score = 0;
     var streak = false;
     var hitTypes = {
@@ -19,19 +19,19 @@ $(document).ready(function () {
         }
         hitTypes[type]++;
         streak = true;
-        notes[0].explode();
+        arrowManager.destroy();
         score+=10;
     }
     function updateScore() {
-        if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
+        if (arrowManager.notes[0].image.position().top > 5 && arrowManager.notes[0].image.position().top < 15) {
             hitbox('PERFECT', 20);
-        } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
+        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 20) {
             hitbox('GREAT', 10);
-        } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
+        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
             hitbox('GOOD', 10);
-        } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
+        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 35) {
             hitbox('COOL', 5);
-        } else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
+        } else if(arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
             hitbox('BAD', 0);
         } else	{
             hitTypes['MISS']++;
@@ -90,7 +90,7 @@ $(document).ready(function () {
                             spawnRate = 10;
                             speed = '-=10px'
                         }
-                        render(spawnRate, speed);
+                        arrowManager.render(spawnRate, speed);
                     } else {
                         $('#timer').html('');
                         $('.stage').html('')
@@ -148,19 +148,19 @@ $(document).ready(function () {
                 updateBoard();
                 console.log(gesture.direction)
                 console.log(score)	
-                console.log(notes)
+                console.log(arrowManager.notes)
                 $('#timer').html('');
                 $("#type").html('')
                 $('#score').html(score)
 
-                if(notes[0]) {
-                    if (gesture.direction == 'Left' && notes[0].direction == "left") {
+                if(arrowManager.notes[0]) {
+                    if (gesture.direction == 'Left' && arrowManager.notes[0].direction == "left") {
                         updateScore();
-                    } else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && notes[0].direction == "up") {
+                    } else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && arrowManager.notes[0].direction == "up") {
                         updateScore();
-                    } else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && notes[0].direction == "down") {
+                    } else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && arrowManager.notes[0].direction == "down") {
                         updateScore();
-                    } else if (gesture.direction == 'Right' && notes[0].direction == "right") {
+                    } else if (gesture.direction == 'Right' && arrowManager.notes[0].direction == "right") {
                         updateScore();
                     } else {
                         console.log(gesture.direction)
@@ -192,20 +192,20 @@ $(document).ready(function () {
                     $("#type").html('')
                     $('#score').html(score)
                     updateBoard();
-                    if(notes[0]) {
-                        if (event.keyCode == 37 && notes[0].direction == "left") {
+                    if(arrowManager.notes[0]) {
+                        if (event.keyCode == 37 && arrowManager.notes[0].direction == "left") {
                             event.preventDefault();
                             updateScore();	
                         }
-                        if (event.keyCode == 38 && notes[0].direction == "up") {
+                        if (event.keyCode == 38 && arrowManager.notes[0].direction == "up") {
                             event.preventDefault();
                             updateScore();
                         }
-                        if (event.keyCode == 40 && notes[0].direction == "down") {
+                        if (event.keyCode == 40 && arrowManager.notes[0].direction == "down") {
                             event.preventDefault();
                             updateScore();
                         }
-                        if (event.keyCode == 39 && notes[0].direction == "right") {
+                        if (event.keyCode == 39 && arrowManager.notes[0].direction == "right") {
                             event.preventDefault();
                             updateScore();
                         }
