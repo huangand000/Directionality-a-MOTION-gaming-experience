@@ -45,15 +45,8 @@
 			</select>
 			<button id='start'>Start</button>
 		</div>
-		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
 
-		<script>
-			$(document).ready(function() {
-				var socket = io.connect();
-				var name = prompt('What is your name?');
-				socket.emit('new_user', {name: name})
-			})
-		</script>
+
 		<script> 
 		var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 				recognition.lang = 'en-US';
