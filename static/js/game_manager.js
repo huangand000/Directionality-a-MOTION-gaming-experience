@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    
+    var game = new Game();
+    
     var score = 0;
     var streak = false;
     var hitTypes = {
