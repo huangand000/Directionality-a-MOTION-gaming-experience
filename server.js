@@ -72,7 +72,7 @@ app.post('/create', function(req, res) {
 
 app.get('/motion/:user_name', function(req, res){ 
     console.log(req.params.user_name)
-    res.render('motion', req.params.user_name); 
+    res.render('motion'); 
 });
 
 app.get('/ddr', function(req, res) {
