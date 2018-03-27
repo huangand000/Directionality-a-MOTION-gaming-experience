@@ -1,55 +1,77 @@
 $(document).ready(function () {
     
     var game = new Game();
+    console.log(game.hitTypes)
     
-    var score = 0;
-    var streak = false;
-    var hitTypes = {
-        'PERFECT': 0,
-        'GREAT': 0,
-        'GOOD': 0,
-        'COOL': 0,
-        'BAD': 0,
-        'MISS': 0
-    }
-    function hitbox (type, points) {
-        $('#type').html(type)
-        if (streak) {
-            score+= points;
-        }
-        hitTypes[type]++;
-        streak = true;
-        notes[0].explode();
-        score+=10;
-    }
+
     function updateScore() {
         if (notes[0].image.position().top > 5 && notes[0].image.position().top < 15) {
-            hitbox('PERFECT', 20);
+            // hitbox('PERFECT', 20);
+            $('#type').html('PERFECT')
+            if (game.streak) {
+                game.score+= 20;
+            }
+            game.hitTypes['PERFECT']++;
+            game.streak = true;
+            notes[0].explode();
+            game.score+=10;
         } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 20) {
-            hitbox('GREAT', 10);
+            // hitbox('GREAT', 10);
+            $('#type').html('GREAT')
+            if (game.streak) {
+                game.score+= 10;
+            }
+            game.hitTypes['GREAT']++;
+            game.streak = true;
+            notes[0].explode();
+            game.score+=10;
         } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 30) {
-            hitbox('GOOD', 10);
+            // hitbox('GOOD', 10);
+            $('#type').html('GOOD')
+            if (game.streak) {
+                game.score+= 10;
+            }
+            game.hitTypes['GOOD']++;
+            game.streak = true;
+            notes[0].explode();
+            game.score+=10;
         } else if (notes[0].image.position().top > 0 && notes[0].image.position().top < 35) {
-            hitbox('COOL', 5);
+            // hitbox('COOL', 5);
+            $('#type').html('COOL')
+            if (game.streak) {
+                game.score+= 5;
+            }
+            game.hitTypes['COOL']++;
+            game.streak = true;
+            notes[0].explode();
+            game.score+=10;
         } else if(notes[0].image.position().top > 0 && notes[0].image.position().top < 45) {
-            hitbox('BAD', 0);
+            // hitbox('BAD', 0);
+            $('#type').html('BAD')
+            if (game.streak) {
+                game.score+= 0;
+            }
+            game.hitTypes['BAD']++;
+            game.streak = true;
+            notes[0].explode();
+            game.score+=10;
         } else	{
-            hitTypes['MISS']++;
+            game.hitTypes['MISS']++;
             $("#type").html('MISS')
-            streak = false;
-            score -=10;
+            game.streak = false;
+            game.score -=10;
         }
     }
-    function updateBoard(){
-        $('#scoreboard').html(
-            '<p>PERFECT: '+ hitTypes['PERFECT'] + '</p>' +
-            '<p>GREAT: '+ hitTypes['GREAT'] + '</p>' +
-            '<p>GOOD: '+ hitTypes['GOOD'] + '</p>' +
-            '<p>COOL: '+ hitTypes['COOL'] + '</p>' +
-            '<p>BAD: '+ hitTypes['BAD'] + '</p>' +
-            '<p>MISS: '+ hitTypes['MISS'] + '</p>' 
-        )	
-    }
+    // function updateBoard{
+    //     $('#scoreboard').html(
+    //         '<p>PERFECT: '+ game.hitTypes['PERFECT'] + '</p>' +
+    //         '<p>GREAT: '+ game.hitTypes['GREAT'] + '</p>' +
+    //         '<p>GOOD: '+ game.hitTypes['GOOD'] + '</p>' +
+    //         '<p>COOL: '+ game.hitTypes['COOL'] + '</p>' +
+    //         '<p>BAD: '+ game.hitTypes['BAD'] + '</p>' +
+    //         '<p>MISS: '+ game.hitTypes['MISS'] + '</p>' 
+    //     )	
+    // }
     $('#start').on('click', function() {
         i = 5;
         var game = setInterval(function() {
@@ -105,7 +127,7 @@ $(document).ready(function () {
                                 labels: ["Miss", "Bad", "Cool", "Good", "Great", "Perfect"],
                                 datasets: [{
                                     label: '# of Votes',
-                                    data: [hitTypes['MISS'], hitTypes['BAD'], hitTypes['COOL'], hitTypes['GOOD'],hitTypes['GREAT'], hitTypes['PERFECT']],
+                                    data: [game.hitTypes['MISS'], game.hitTypes['BAD'], game.hitTypes['COOL'], game.hitTypes['GOOD'],game.hitTypes['GREAT'], game.hitTypes['PERFECT']],
                                     backgroundColor: [
                                         'rgb(124, 121, 122, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
@@ -143,9 +165,9 @@ $(document).ready(function () {
         
         if ($('#mode').val() == 'motion') {
             // var score = 0;
-            // var streak = false;
+            // var game.streak = false;
             gest.options.subscribeWithCallback(function(gesture) {
-                updateBoard();
+                game.updateBoard();
                 console.log(gesture.direction)
                 console.log(score)	
                 console.log(notes)
@@ -164,50 +186,40 @@ $(document).ready(function () {
                         updateScore();
                     } else {
                         console.log(gesture.direction)
-                        hitTypes['MISS']++;
+                        game.hitTypes['MISS']++;
                         $("#type").html('MISS')
                         score-=10;
                     } 
                 }
-                    // var message = '';
-                    // if (gesture.direction) {
-                    // 	message = gesture.direction;
-                    // 	console.log(gesture.direction)
-                    // } else {
-                    // 	message = gesture.error.message;
-                    // } 
-
-                    // messageContainer.innerHTML = '<p style=\"margin:0\">' + message + '</p>';
-                    // messageContainer.setAttribute('style', messageContainerStyle);
-
-                    // window.setTimeout(function() {
-                    // 	messageContainer.setAttribute('style', 'display: none;');
-                    // }, 3000);
-                }, streak);
+                }, game.streak);
                 gest.start();
             } else if ($('#mode').val() == 'normal') {
-                updateBoard();
+                game.updateBoard();
                 $(document).keydown( function(event) {
                     $('#timer').html('');
                     $("#type").html('')
                     $('#score').html(score)
-                    updateBoard();
+                    game.updateBoard();
                     if(notes[0]) {
                         if (event.keyCode == 37 && notes[0].direction == "left") {
                             event.preventDefault();
                             updateScore();	
+                            $('#score').html(score)
                         }
                         if (event.keyCode == 38 && notes[0].direction == "up") {
                             event.preventDefault();
                             updateScore();
+                            $('#score').html(score)
                         }
                         if (event.keyCode == 40 && notes[0].direction == "down") {
                             event.preventDefault();
                             updateScore();
+                            $('#score').html(score)
                         }
                         if (event.keyCode == 39 && notes[0].direction == "right") {
                             event.preventDefault();
                             updateScore();
+                            $('#score').html(score)
                         }
                     }
                 });

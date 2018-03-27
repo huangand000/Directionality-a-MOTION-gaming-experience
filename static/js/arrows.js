@@ -1,5 +1,6 @@
-var notes = [];
 
+
+    var notes = [];
 
 // ==== CLASS FOR ARROWS ==== //
 
@@ -13,7 +14,6 @@ function Arrow(direction) {
 
     // CSS spacings for the arrows //
     var xPos = null;
-
     if (direction == 'left') {
         xPos = '115px'
     } else if (direction == 'up') {
