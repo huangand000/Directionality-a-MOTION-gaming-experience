@@ -1,4 +1,4 @@
-class ArrowManager {
+ class ArrowManager {
     constructor(){
         this.notes = [];
         this.frame = 0;

@@ -1,5 +1,8 @@
 class Game {
-    constructor() {
+    constructor(arrowManager) {
+        var self= this;
+        this.arrowManager = arrowManager;
+        console.log(this.arrowManager)
         this.score = 0;
         this.streak = false;
         this.hitTypes = {
@@ -10,10 +13,6 @@ class Game {
             'BAD': 0,
             'MISS': 0
         }
-    }
-
-    startGame() {
-        
     }
 
     updateBoard(){
@@ -27,63 +26,64 @@ class Game {
         )	
     }
 
-    // updateScore() {
-    //     if (this.notes[0].image.position().top > 5 && this.notes[0].image.position().top < 15) {
-    //         // hitbox('PERFECT', 20);
-    //         $('#type').html('PERFECT')
-    //         if (game.streak) {
-    //             this.score+= 20;
-    //         }
-    //         game.hitTypes['PERFECT']++;
-    //         game.streak = true;
-    //         this.notes[0].explode();
-    //         this.score+=10;
-    //     } else if (this.notes[0].image.position().top > 0 && this.notes[0].image.position().top < 20) {
-    //         // hitbox('GREAT', 10);
-    //         $('#type').html('GREAT')
-    //         if (game.streak) {
-    //             this.score+= 10;
-    //         }
-    //         game.hitTypes['GREAT']++;
-    //         game.streak = true;
-    //         this.notes[0].explode();
-    //         this.score+=10;
-    //     } else if (this.notes[0].image.position().top > 0 && this.notes[0].image.position().top < 30) {
-    //         // hitbox('GOOD', 10);
-    //         $('#type').html('GOOD')
-    //         if (game.streak) {
-    //             this.score+= 10;
-    //         }
-    //         game.hitTypes['GOOD']++;
-    //         game.streak = true;
-    //         this.notes[0].explode();
-    //         this.score+=10;
-    //     } else if (this.notes[0].image.position().top > 0 && this.notes[0].image.position().top < 35) {
-    //         // hitbox('COOL', 5);
-    //         $('#type').html('COOL')
-    //         if (game.streak) {
-    //             this.score+= 5;
-    //         }
-    //         game.hitTypes['COOL']++;
-    //         game.streak = true;
-    //         this.notes[0].explode();
-    //         this.score+=10;
-    //     } else if(this.notes[0].image.position().top > 0 && this.notes[0].image.position().top < 45) {
-    //         // hitbox('BAD', 0);
-    //         $('#type').html('BAD')
-    //         if (game.streak) {
-    //             this.score+= 0;
-    //         }
-    //         game.hitTypes['BAD']++;
-    //         game.streak = true;
-    //         this.notes[0].explode();
-    //         this.score+=10;
-    //     } else	{
-    //         game.hitTypes['MISS']++;
-    //         $("#type").html('MISS')
-    //         game.streak = false;
-    //         this.score -=10;
-    //     }
-    // }
+    updateScore() {
+        console.log(this.arrowManager)
+        if (this.arrowManager.notes[0].image.position().top > 5 && this.arrowManager.notes[0].image.position().top < 15) {
+            // hitbox('PERFECT', 20);
+            $('#type').html('PERFECT')
+            if (this.streak) {
+                this.score+= 20;
+            }
+            this.hitTypes['PERFECT']++;
+            this.streak = true;
+            this.arrowManager.destroy();
+            this.score+=10;
+        } else if (this.arrowManager.notes[0].image.position().top > 0 && this.arrowManager.notes[0].image.position().top < 20) {
+            // hitbox('GREAT', 10);
+            $('#type').html('GREAT')
+            if (this.streak) {
+                this.score+= 10;
+            }
+            this.hitTypes['GREAT']++;
+            this.streak = true;
+            this.arrowManager.destroy();
+            this.score+=10;
+        } else if (this.arrowManager.notes[0].image.position().top > 0 && this.arrowManager.notes[0].image.position().top < 30) {
+            // hitbox('GOOD', 10);
+            $('#type').html('GOOD')
+            if (this.streak) {
+                this.score+= 10;
+            }
+            this.hitTypes['GOOD']++;
+            this.streak = true;
+            this.arrowManager.destroy();
+            this.score+=10;
+        } else if (this.arrowManager.notes[0].image.position().top > 0 && this.arrowManager.notes[0].image.position().top < 35) {
+            // hitbox('COOL', 5);
+            $('#type').html('COOL')
+            if (this.streak) {
+                this.score+= 5;
+            }
+            this.hitTypes['COOL']++;
+            this.streak = true;
+            this.arrowManager.destroy();
+            this.score+=10;
+        } else if(this.arrowManager.notes[0].image.position().top > 0 && this.arrowManager.notes[0].image.position().top < 45) {
+            // hitbox('BAD', 0);
+            $('#type').html('BAD')
+            if (this.streak) {
+                this.score+= 0;
+            }
+            this.hitTypes['BAD']++;
+            this.streak = true;
+            this.arrowManager.destroy();
+            this.score+=10;
+        } else	{
+            this.hitTypes['MISS']++;
+            $("#type").html('MISS')
+            this.streak = false;
+            this.score -=10;
+        }
+    }
 
 }

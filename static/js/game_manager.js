@@ -1,7 +1,6 @@
 $(document).ready(function () {
-    
-    var game = new Game();
     var arrowManager = new ArrowManager();
+    var game = new Game(arrowManager);
     var score = 0;
     var streak = false;
     var hitTypes = {
@@ -12,44 +11,6 @@ $(document).ready(function () {
         'BAD': 0,
         'MISS': 0
     }
-    function hitbox (type, points) {
-        $('#type').html(type)
-        if (streak) {
-            score+= points;
-        }
-        hitTypes[type]++;
-        streak = true;
-        arrowManager.destroy();
-        score+=10;
-    }
-    function updateScore() {
-        if (arrowManager.notes[0].image.position().top > 5 && arrowManager.notes[0].image.position().top < 15) {
-            hitbox('PERFECT', 20);
-        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 20) {
-            hitbox('GREAT', 10);
-        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
-            hitbox('GOOD', 10);
-        } else if (arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 35) {
-            hitbox('COOL', 5);
-        } else if(arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
-            hitbox('BAD', 0);
-        } else	{
-            game.hitTypes['MISS']++;
-            $("#type").html('MISS')
-            game.streak = false;
-            game.score -=10;
-        }
-    }
-    // function updateBoard{
-    //     $('#scoreboard').html(
-    //         '<p>PERFECT: '+ game.hitTypes['PERFECT'] + '</p>' +
-    //         '<p>GREAT: '+ game.hitTypes['GREAT'] + '</p>' +
-    //         '<p>GOOD: '+ game.hitTypes['GOOD'] + '</p>' +
-    //         '<p>COOL: '+ game.hitTypes['COOL'] + '</p>' +
-    //         '<p>BAD: '+ game.hitTypes['BAD'] + '</p>' +
-    //         '<p>MISS: '+ game.hitTypes['MISS'] + '</p>' 
-    //     )	
-    // }
     $('#start').on('click', function() {
         i = 5;
         var game = setInterval(function() {
@@ -139,11 +100,12 @@ $(document).ready(function () {
             }
         }, 1000)
     })
+    
     $('#start').on('click', function() {
-        
         if ($('#mode').val() == 'motion') {
-            // var score = 0;
-            // var game.streak = false;
+            game.motion();
+            var score = 0;
+            var streak = false;
             gest.options.subscribeWithCallback(function(gesture) {
                 game.updateBoard();
                 console.log(gesture.direction)
@@ -155,18 +117,18 @@ $(document).ready(function () {
 
                 if(arrowManager.notes[0]) {
                     if (gesture.direction == 'Left' && arrowManager.notes[0].direction == "left") {
-                        updateScore();
+                        game.updateScore();
                     } else if ((gesture.direction == 'Up' || gesture.direction == 'Long up') && arrowManager.notes[0].direction == "up") {
-                        updateScore();
+                        game.updateScore();
                     } else if ((gesture.direction == 'Down' || gesture.direction == 'Long down') && arrowManager.notes[0].direction == "down") {
-                        updateScore();
+                        game.updateScore();
                     } else if (gesture.direction == 'Right' && arrowManager.notes[0].direction == "right") {
-                        updateScore();
+                        game.updateScore();
                     } else {
                         console.log(gesture.direction)
                         game.hitTypes['MISS']++;
                         $("#type").html('MISS')
-                        score-=10;
+                        game.score-=10;
                     } 
                 }
                 }, game.streak);
@@ -176,28 +138,28 @@ $(document).ready(function () {
                 $(document).keydown( function(event) {
                     $('#timer').html('');
                     $("#type").html('')
-                    $('#score').html(score)
-                    updateBoard();
+                    $('#score').html(game.score)
+                    game.updateBoard();
                     if(arrowManager.notes[0]) {
                         if (event.keyCode == 37 && arrowManager.notes[0].direction == "left") {
                             event.preventDefault();
-                            updateScore();	
-                            $('#score').html(score)
+                            game.updateScore();	
+                            $('#score').html(game.score)
                         }
                         if (event.keyCode == 38 && arrowManager.notes[0].direction == "up") {
                             event.preventDefault();
-                            updateScore();
-                            $('#score').html(score)
+                            game.updateScore();
+                            $('#score').html(game.score)
                         }
                         if (event.keyCode == 40 && arrowManager.notes[0].direction == "down") {
                             event.preventDefault();
-                            updateScore();
-                            $('#score').html(score)
+                            game.updateScore();
+                            $('#score').html(game.score)
                         }
                         if (event.keyCode == 39 && arrowManager.notes[0].direction == "right") {
                             event.preventDefault();
-                            updateScore();
-                            $('#score').html(score)
+                            game.updateScore();
+                            $('#score').html(game.score)
                         }
                     }
                 });
