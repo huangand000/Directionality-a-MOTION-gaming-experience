@@ -1,14 +1,33 @@
-.stage {
+.stage, .stage2 {
 	background-color: black;
 	height: 500px;
 	width: 500px;
 	text-align: center;
 }
-#controls {
-	padding-left: 105px;
 
+.stage2 {
+	vertical-align: top;
+	position: relative;
+	bottom: 605px; 
+	left: 600px;
 }
+
+.controls, .controls2 {
+	padding-left: 105px;
+}
+
+.controls2 {
+	position: relative;
+	bottom: 605px;
+	left: 607px;
+}
+
 #left, #up, #down, #right {
 	position: relative;
 	bottom: 495px;
+}
+
+#buttons {
+	position: relative;
+	bottom: 600px;
 }

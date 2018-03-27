@@ -19,8 +19,12 @@ class Arrow {
             top: "450px",
             left: this.xPos
         });
+        var image = this.image;
+        var image2 = this.image;
+        console.log(image)
+        $('.stage').append(image);
 
-        $('.stage').append(this.image);
+
     }
     // CSS spacings for the arrows //
 }

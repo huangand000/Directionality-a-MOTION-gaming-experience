@@ -51,10 +51,12 @@ $(document).ready(function () {
                             spawnRate = 10;
                             speed = '-=10px'
                         }
+                        $('.stage2').html($('.stage').html());
                         arrowManager.render(spawnRate, speed);
                     } else {
                         $('#timer').html('');
                         $('.stage').html('')
+                        $('.stage2').html('')
                         $('#audio')[0].pause();
                         $('#audio')[0].currentTime = 0;
                         clearInterval(loop)

@@ -17,22 +17,36 @@
 
 	<body>
 		<div class="stage" style='display: inline-block'>
-			<h1 style='color:white; line-height:500px; font-size: 90pt;'id="timer"></h1>
-			<h1 style='color:red; line-height:500px; font-size: 70pt;'id="type"></h1>
-			<h1 id='score' style='color: white; position: relative; top: 450px; border-top: 1px solid white; padding-top: 5px;'>0</h1>
+			<h1 id="timer"></h1>
+			<h1 id='score' >0</h1>
 		</div> 
-		<!-- add controls in audio tag to see control bar -->
-		<audio id='audio'> 
-			<source src='/static/img/music.mp3' type='audio/mpeg'>
-		</audio>
-		
-		<div id="controls" style='width:300px;'>
+		<div class="controls" style='width:300px; margin: 0px;'>
 			<img id="left" src="/static/img/arrows/staticLeft.png">
 			<img id="up" src="/static/img/arrows/staticUp.png">
 			<img id="down" src="/static/img/arrows/staticDown.png">
 			<img id="right" src="/static/img/arrows/staticRight.png">
 		</div> 
-		<div id='buttons' style='display: inline-block; width: 200px; position: absolute; bottom: 400px; left: 600px;'>
+		<br>
+		<br>
+		<div class="stage2" style='display: inline-block'>
+			<h1 id="timer"></h1>
+			<h1 id='score' >0</h1>
+		</div> 
+
+		<!-- add controls in audio tag to see control bar -->
+		
+		<div class="controls2">
+			<img id="left" src="/static/img/arrows/staticLeft.png">
+			<img id="up" src="/static/img/arrows/staticUp.png">
+			<img id="down" src="/static/img/arrows/staticDown.png">
+			<img id="right" src="/static/img/arrows/staticRight.png">
+		</div> 
+		<audio id='audio'> 
+			<source src='/static/img/music.mp3' type='audio/mpeg'>
+		</audio>
+		<h1 id="type" style='color:red; position:relative; bottom: 800px; left: 200px;' ></h1>
+
+		<div id='buttons'>
 			<div id='scoreboard'></div>
 			<select id='difficulty'>
 				<option>easy</option>
