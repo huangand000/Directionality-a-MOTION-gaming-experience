@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
     $('#start').on('click', function() {
         i = 5;
-        var game = setInterval(function() {
+        var gameloop = setInterval(function() {
             i--;
             console.log(i)
             if (i == 4) {
@@ -51,10 +51,12 @@ $(document).ready(function () {
                             spawnRate = 10;
                             speed = '-=10px'
                         }
+                        $('.stage2').html($('.stage').html());
                         arrowManager.render(spawnRate, speed);
                     } else {
                         $('#timer').html('');
                         $('.stage').html('')
+                        $('.stage2').html('')
                         $('#audio')[0].pause();
                         $('#audio')[0].currentTime = 0;
                         clearInterval(loop)
@@ -96,7 +98,7 @@ $(document).ready(function () {
                 }, 20, counter);
             }
             if (i == -1) {
-                clearInterval(game);
+                clearInterval(gameloop);
             }
         }, 1000)
     })
