@@ -6,6 +6,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src='/static/js/gest.js'></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script>var socket = io.connect(); </script>
 		<script src='/static/js/voice.js'></script>
 		<script src='/static/js/game_class.js'></script>
 		<script src='/static/js/game_manager.js'></script>
@@ -45,6 +47,8 @@
 			<source src='/static/img/music.mp3' type='audio/mpeg'>
 		</audio>
 		<h1 id="type" style='color:red; position:relative; bottom: 800px; left: 200px;' ></h1>
+		<h1 id="type2" style='color:red; position:relative; bottom: 800px; left: 700px;' ></h1>
+
 
 		<div id='buttons'>
 			<div id='scoreboard'></div>
@@ -62,28 +66,8 @@
 		</div>
 		<canvas id="myChart" width="400" height="400"></canvas>
 
-		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
-<!-- 
 		<script>
-			$(document).ready(function() {
-				var socket = io.connect();
-				var name = prompt('What is your name?');
-				socket.emit('new_user', {name: name})
-			})
-		</script> -->
-		<script type="text/javascript">
-			//create message container
-			var messageContainer = document.createElement('div');
-			messageContainer.className = 'gest-message';
-			document.body.appendChild(messageContainer);
-			
-			var styles = {
-				positioning: 'margin: 22% auto; min-width: 100px; max-width: 400px; width: 80%; padding: 15px;',
-				copy: 'font: normal 35px/1.1 \"Helvetica Neue\", Helvetica, Arial, sans-serif; color: #fff; font-size: 45px; text-align: center;',
-				general: 'display: block; background-color: #000; z-index: 100; border-radius: 10px;'
-			},
-			messageContainerStyle = styles.positioning + styles.copy + styles.general;
-			//game_manager content was here
+
 		</script>
 	</body>
 </html>
