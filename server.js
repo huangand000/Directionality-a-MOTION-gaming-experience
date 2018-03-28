@@ -42,6 +42,7 @@ var UserSchema = mongoose.Schema({
 }, {timestamps: true})
 mongoose.model('User', UserSchema);
 var User = mongoose.model('User')
+var rooms = {}
 
 //io.set('log level', 2);
 
@@ -51,15 +52,22 @@ var server = app.listen(8000, function() {
 //app.use(express.bodyParser());
 
 app.get('/', function(req, res){ 
-    res.render('home'); 
+    res.render('home', {allRooms: rooms}); 
 });
 
 
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
 
-app.get('/motion/', function(req, res){ 
+app.get('/motion', function(req, res){ 
     res.render('motion'); 
+});
+
+app.get('/existing/:url', function(req, res) {
+    console.log(req.params.url)
+    console.log('gi')
+    console.log('REQ BODY', req.body)
+    // res.render('/motion/)
 });
 
 app.get('/ddr', function(req, res) {
@@ -72,17 +80,36 @@ var count = 0;
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     console.log("Client/socket id is: ", socket.id);
-    
     socket.on('join', function (params, callback) {
-        console.log(params)
+        if (!rooms[params.room_name]) {
+            rooms[params.room_name] = [socket.id]
+        } else {
+            rooms[params.room_name].push(socket.id)
+        }
+        console.log('OUR ROOMS', rooms)
         if (!isRealString(params.user_name) || !isRealString(params.room_name)) {
             callback('Name and room name are required')
         }
         socket.join(params.room_name)
         callback();
-        console.log('ROOMS!!', io.sockets.adapter.rooms[params.room_name])
+        console.log('ROOMS!!', io.sockets.adapter.rooms)
+        socket.on("disconnect", function() {
 
+            for (var room in rooms) {
+                console.log('BEOFRE', rooms[room])
+                if(rooms[room].indexOf(socket.id) != -1) {
+                    console.log('STUFF HERE', rooms[room].indexOf(socket.id))
+                    rooms[room].splice(rooms[room].indexOf(socket.id), 1)
+                }
+                if (rooms[room].length == 0) {
+                    delete rooms[room]
+                }
+            }
+            console.log('AFTER', rooms[room])
+            console.log(socket.id, ' Disconnectedd')
+        })
     })
+    
     socket.on("gotResult", function (data){
         console.log('Got result: ', data.result);
         socket.broadcast.emit('emitResult', data)
@@ -107,6 +134,7 @@ io.sockets.on('connection', function (socket) {
         // io.emit('updatedNotes', notes);
     });
 });
+
 
 
 

@@ -9,14 +9,47 @@
 <body>
     <h1>Welcome to Motion Revolution</h1>
     <form action='/motion'>
-        Display Name: <input type='text' name='user_name'>
-        <br>
+    Create Game:
+        Display Name: <input type='text' name='user_name'> 
         Room Name: <input type='text' name='room_name'>
         <input type='submit' value='GO'>
-    </form>
-
+ </form>
     <div class='existing'>
-        
+    Display Name: <input id='name' type='text' name='user_name'> 
+    <table>
+        <tbody>
+            <tr>
+                <td>Room Name:</td>
+                <td>Capacity:</td>
+            </tr>
+            <% for (var room in allRooms) { %>
+            <tr>
+                <% if (allRooms[room].length == 2) { %>
+                    <td><button disabled = true onclick= "join(this)" value='<%=room%>'><%=room%></button></td>
+                <% } else { %>
+                    <td><button onclick= "join(this)" value='<%=room%>'><%=room%></button></td>
+
+                <% } %>
+                <td><%= allRooms[room].length %>/2</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
     </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+        $('#room').on('click', function() {
+            
+        })
+
+        function join(obj, room) {
+            console.log(obj.value)
+            var url = $.param({
+                user_name: $('#name').val(),
+                room_name: obj.value
+            })
+            window.location.href = '/motion?' + url
+        }
+</script>
 </body>
 </html>
