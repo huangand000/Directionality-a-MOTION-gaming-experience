@@ -1,17 +1,16 @@
 $(document).ready(function () {
     var arrowManager = new ArrowManager();
     var game = new Game(arrowManager);
-    var score = 0;
-    var streak = false;
-    var hitTypes = {
-        'PERFECT': 0,
-        'GREAT': 0,
-        'GOOD': 0,
-        'COOL': 0,
-        'BAD': 0,
-        'MISS': 0
-    }
+    var ready = false;
+    socket.on('gameStarting', function() {
+        gameplay();
+    })
+
     $('#start').on('click', function() {
+        ready = true;
+        socket.emit('gameStart', {socket:socket.id})        
+    })
+    function gameplay(){
         i = 5;
         var gameloop = setInterval(function() {
             i--;
@@ -101,7 +100,7 @@ $(document).ready(function () {
                 clearInterval(gameloop);
             }
         }, 1000)
-    })
+    }
     
     $('#start').on('click', function() {
         if ($('#mode').val() == 'motion') {
@@ -146,21 +145,25 @@ $(document).ready(function () {
                         if (event.keyCode == 37 && arrowManager.notes[0].direction == "left") {
                             event.preventDefault();
                             game.updateScore();	
+                            game.updateBoard();
                             $('#score').html(game.score)
                         }
                         if (event.keyCode == 38 && arrowManager.notes[0].direction == "up") {
                             event.preventDefault();
                             game.updateScore();
+                            game.updateBoard();
                             $('#score').html(game.score)
                         }
                         if (event.keyCode == 40 && arrowManager.notes[0].direction == "down") {
                             event.preventDefault();
                             game.updateScore();
+                            game.updateBoard();
                             $('#score').html(game.score)
                         }
                         if (event.keyCode == 39 && arrowManager.notes[0].direction == "right") {
                             event.preventDefault();
                             game.updateScore();
+                            game.updateBoard();
                             $('#score').html(game.score)
                         }
                     }

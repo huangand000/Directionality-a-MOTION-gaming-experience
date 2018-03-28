@@ -1,7 +1,6 @@
 /**************/
 /*** CONFIG ***/
 /**************/
-var PORT = 8000;
 
 
 /*************/
@@ -45,8 +44,8 @@ var User = mongoose.model('User')
 
 //io.set('log level', 2);
 
-server.listen(PORT, null, function() {
-    console.log("Listening on port " + PORT);
+var server = app.listen(8000, function() {
+    console.log("Listening on port on 8000");
 });
 //app.use(express.bodyParser());
 
@@ -81,7 +80,25 @@ app.get('/ddr', function(req, res) {
 app.get('/chart', function(req, res) {
     res.render('chart');
 })
-
+var count = 0;
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+    console.log("Client/socket is connected!");
+    console.log("Client/socket id is: ", socket.id);
+    // all the server socket code goes in here
+    socket.on("gotResult", function (data){
+        console.log('Got result: ', data.result);
+        socket.broadcast.emit('emitResult', data)
+    });
+    socket.on("gameStart", function (id){
+        count++;
+        console.log(count)
+        if (count == 2) {
+            io.emit('gameStarting');
+            count = 0;
+        }
+    });
+});
 
 
 
