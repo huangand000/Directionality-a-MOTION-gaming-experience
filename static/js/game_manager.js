@@ -6,17 +6,17 @@ $(document).ready(function () {
         gameplay();
     })
     socket.on('updatedNotes', function(notes) {
-        arrowManager.notes = [];
-        console.log('recieved notes!!!!!!!!!', notes);
-        for (var i = 0; i < notes.length; i++ ) {
-            console.log('notes direction', notes[i].direction);
-            arrowManager.notes.push(new Arrow(notes[i].direction));
-        }
-        console.log('arrow managerrrrrr', arrowManager.notes);
+        // arrowManager.notes = [];
         // console.log('recieved notes!!!!!!!!!', notes);
-        console.log('arrowmanager notes', arrowManager.notes)
+        // for (var i = 0; i < notes.length; i++ ) {
+        //     console.log('notes direction', notes[i].direction);
+        //     arrowManager.notes.push(new Arrow(notes[i].direction));
+        // }
+        // console.log('arrow managerrrrrr', arrowManager.notes);
+        // // console.log('recieved notes!!!!!!!!!', notes);
+        // console.log('arrowmanager notes', arrowManager.notes)
 
-        // arrowManager.notes = notes;
+        // // arrowManager.notes = notes;
     })
     socket.on('sendArrow', function(arrow) {
         console.log(arrow);
@@ -25,7 +25,7 @@ $(document).ready(function () {
     $('#start').on('click', function() {
         ready = true;
         socket.emit('gameStart', {socket:socket.id})   
-        socket.emit('checkArrow', new Arrow('up')); 
+        // socket.emit('checkArrow', new Arrow('up')); 
     })
     function gameplay(){
         i = 5;
