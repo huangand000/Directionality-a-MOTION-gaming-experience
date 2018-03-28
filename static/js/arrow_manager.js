@@ -3,7 +3,6 @@
         this.notes = [];
         this.frame = 0;
     }
-
     randomGen() {
         var r = Math.floor(Math.random() * 4) + 1;
         if (r === 1) {
@@ -14,8 +13,7 @@
             this.notes.push(new Arrow("up"));	
         } else if (r === 4) { 
             this.notes.push(new Arrow("down"));
-        }
-
+        }      
     }
 
     render(arrowSpawnRate, speed) {
@@ -28,7 +26,6 @@
 
                 this.destroy();
             }
-
         }
 
     }

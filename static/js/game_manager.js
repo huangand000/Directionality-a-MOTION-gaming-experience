@@ -5,10 +5,27 @@ $(document).ready(function () {
     socket.on('gameStarting', function() {
         gameplay();
     })
+    socket.on('updatedNotes', function(notes) {
+        arrowManager.notes = [];
+        console.log('recieved notes!!!!!!!!!', notes);
+        for (var i = 0; i < notes.length; i++ ) {
+            console.log('notes direction', notes[i].direction);
+            arrowManager.notes.push(new Arrow(notes[i].direction));
+        }
+        console.log('arrow managerrrrrr', arrowManager.notes);
+        // console.log('recieved notes!!!!!!!!!', notes);
+        console.log('arrowmanager notes', arrowManager.notes)
+
+        // arrowManager.notes = notes;
+    })
+    socket.on('sendArrow', function(arrow) {
+        console.log(arrow);
+    })
 
     $('#start').on('click', function() {
         ready = true;
-        socket.emit('gameStart', {socket:socket.id})        
+        socket.emit('gameStart', {socket:socket.id})   
+        socket.emit('checkArrow', new Arrow('up')); 
     })
     function gameplay(){
         i = 5;
@@ -50,8 +67,11 @@ $(document).ready(function () {
                             spawnRate = 10;
                             speed = '-=10px'
                         }
-                        $('.stage2').html($('.stage').html());
+                        socket.emit('newNote', arrowManager.notes)  
+                        
+                        // $('.stage2').html($('.stage').html());
                         arrowManager.render(spawnRate, speed);
+                        // console.log('EMITING ARROWMAN.NOTES', arrowManager.notes);
                     } else {
                         $('#timer').html('');
                         $('.stage').html('')

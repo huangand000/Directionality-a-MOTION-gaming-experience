@@ -22,6 +22,7 @@ var io  = require('socket.io').listen(server);
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
+const {isRealString} = require('./static/js/validation');
 
 var Schema = mongoose.Schema;
 var UserSchema = mongoose.Schema({
@@ -53,24 +54,11 @@ app.get('/', function(req, res){
     res.render('home'); 
 });
 
-app.post('/create', function(req, res) {
-    User.create(req.body, function(err) {
-        if (err) {
-            console.log(req.body.user_name + " already exists")
-            res.redirect('/')
-        } else {
-            req.session.user_name = req.body.user_name;
-            console.log(req.session.user_name)
-            res.redirect('motion/' + req.session.user_name)
-        }
-    })
-    console.log(req.body)
-})
+
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
 
-app.get('/motion/:user_name', function(req, res){ 
-    console.log(req.params.user_name)
+app.get('/motion/', function(req, res){ 
     res.render('motion'); 
 });
 
@@ -83,9 +71,18 @@ app.get('/chart', function(req, res) {
 var count = 0;
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-    console.log("Client/socket is connected!");
-    console.log("Client/socket id is: ", socket.id);
-    // all the server socket code goes in here
+    console.log("Client/socket id is: ", socket.id);
+    
+    socket.on('join', function (params, callback) {
+        console.log(params)
+        if (!isRealString(params.user_name) || !isRealString(params.room_name)) {
+            callback('Name and room name are required')
+        }
+        socket.join(params.room_name)
+        callback();
+        console.log('ROOMS!!', io.sockets.adapter.rooms[params.room_name])
+
+    })
     socket.on("gotResult", function (data){
         console.log('Got result: ', data.result);
         socket.broadcast.emit('emitResult', data)
@@ -97,6 +94,17 @@ io.sockets.on('connection', function (socket) {
             io.emit('gameStarting');
             count = 0;
         }
+    });
+    socket.on("checkArrow", function (arrow){
+        console.log("ARROWWOWWOOWOWOWOWOWOW", arrow)
+        socket.emit('sendArrow', arrow);
+
+    });
+    socket.on("newNote", function (notes){
+        console.log("notessss", notes);
+        socket.emit('updatedNotes', notes);
+
+        // io.emit('updatedNotes', notes);
     });
 });
 
