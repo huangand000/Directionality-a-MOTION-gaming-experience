@@ -161,29 +161,65 @@ $(document).ready(function () {
                     $('#score').html(game.score)
                     game.updateBoard();
                     if(arrowManager.notes[0]) {
-                        if (event.keyCode == 37 && arrowManager.notes[0].direction == "left") {
-                            event.preventDefault();
-                            game.updateScore();	
-                            game.updateBoard();
-                            $('#score').html(game.score)
+                        if (event.keyCode == 37) {
+                            $('#left').attr('src', '/static/img/arrows/left2.png')
+                            setTimeout(function() {
+                                $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "left") {
+                                event.preventDefault();
+                                game.updateScore();	
+                                game.updateBoard();
+                                $('#score').html(game.score)
+                            } else {
+                                game.updateScore();
+                                game.updateBoard();
+                            }
                         }
-                        if (event.keyCode == 38 && arrowManager.notes[0].direction == "up") {
-                            event.preventDefault();
-                            game.updateScore();
-                            game.updateBoard();
-                            $('#score').html(game.score)
+                        if (event.keyCode == 38) {
+                            $('#up').attr('src', '/static/img/arrows/up2.png')
+                            setTimeout(function() {
+                                $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "up") {
+                                event.preventDefault();
+                                game.updateScore();
+                                game.updateBoard();
+                                $('#score').html(game.score)
+                            } else {
+                                game.updateScore();
+                                game.updateBoard();
+                            }
                         }
-                        if (event.keyCode == 40 && arrowManager.notes[0].direction == "down") {
-                            event.preventDefault();
-                            game.updateScore();
-                            game.updateBoard();
-                            $('#score').html(game.score)
+                        if(event.keyCode == 40) {
+                            $('#down').attr('src', '/static/img/arrows/down2.png')
+                            setTimeout(function() {
+                                $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "down") {
+                                event.preventDefault();
+                                game.updateScore();
+                                game.updateBoard();
+                                $('#score').html(game.score)
+                            } else {
+                                game.updateScore();
+                                game.updateBoard();
+                            }
                         }
-                        if (event.keyCode == 39 && arrowManager.notes[0].direction == "right") {
-                            event.preventDefault();
-                            game.updateScore();
-                            game.updateBoard();
-                            $('#score').html(game.score)
+                        if(event.keyCode == 39) {
+                            $('#right').attr('src', '/static/img/arrows/right2.png')
+                            setTimeout(function() {
+                                $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "right") {
+                                event.preventDefault();
+                                game.updateScore();
+                                game.updateBoard();
+                                $('#score').html(game.score)
+                            } else {
+                                game.updateScore();
+                                game.updateBoard();
+                            }
                         }
                     }
                 });
