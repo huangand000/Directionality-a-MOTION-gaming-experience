@@ -3,20 +3,31 @@
 	height: 500px;
 	width: 500px;
 	text-align: center;
-}
-
-
-.controls, .controls2 {
+	}
+	
+	/* .stage2 {
+	vertical-align: top;
+	position: relative;
+	bottom: 605px; 
+	left: 600px;
+	}
+	 */
+	.controls, .controls2 {
 	padding-left: 105px;
-}
-
-
-#left, #up, #down, #right {
+	}
+	
+	/* .controls2 {
+	position: relative;
+	bottom: 605px;
+	left: 607px;
+	} */
+	
+	#left, #up, #down, #right {
 	position: relative;
 	bottom: 495px;
-}
-
-/* #buttons {
+	}
+	
+	/* #buttons {
 	position: relative;
 	bottom: 600px;
-} */
+	} */

@@ -61,17 +61,15 @@ app.get('/template', function(req, res) {
 
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
-
+app.get('/tempmotion', function(req, res){ 
+    res.render('tempmotion'); 
+});
 app.get('/motion', function(req, res){ 
     res.render('motion'); 
 });
 app.get('/elements', function(req, res){ 
     res.render('elements'); 
 });
-app.get('/tempmotion', function(req, res){ 
-    res.render('tempmotion'); 
-});
-
 app.get('/existing/:url', function(req, res) {
     console.log(req.params.url)
     console.log('gi')

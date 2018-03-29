@@ -47,8 +47,10 @@ $(document).ready(function () {
                         } else if ($('#difficulty').val() == 'legendary') {
                             spawnRate = 10;
                             speed = '-=10px'
-                        }                        
-                        $('.stage2').html($('.stage').html());
+                        }             
+                        // $('#stageholder2').html($('.stage').html());
+           
+                        // $('.stage2').html($('.stage').html());
                         arrowManager.render(spawnRate, speed);
                         if (arrowManager.notes[0].image.position().top < -10) {
                             game.hitTypes['MISS']++;
