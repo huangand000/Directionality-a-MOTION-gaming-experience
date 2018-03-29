@@ -93,7 +93,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('join', function (params, callback) {
         if (!rooms[params.room_name]) {
             rooms[params.room_name] = [socket.id]
-        } else {
+        } else if (isRealString(params.user_name) && isRealString(params.room_name)){
             rooms[params.room_name].push(socket.id)
         }
         console.log('OUR ROOMS', rooms)
@@ -121,13 +121,17 @@ io.sockets.on('connection', function (socket) {
         socket.on("gotResult", function (data){
             console.log('Got result: ', data.result);
             console.log(socket)
-            io.sockets.in(params.room_name).emit('emitResult', data)
+            socket.broadcast.to(params.room_name).emit('emitResult', data)
+        });
+        socket.on("gotResult2", function (){
+            console.log(socket)
+            socket.broadcast.to(params.room_name).emit('emitResult2')
         });
         socket.on("gameStart", function (id){
             count++;
             console.log(count)
             if (count == 2) {
-            io.sockets.in(params.room_name).emit('gameStarting')
+            io.sockets.to(params.room_name).emit('gameStarting')
                 count = 0;
             }
         });

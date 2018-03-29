@@ -128,7 +128,6 @@ window.gest = (function (window) {
 			video.height = 225;
 			video.setAttribute('style', '-webkit-transform: scaleX(-1); transform: scaleX(-1);'); //mirrors the video
 			// video.setAttribute('style', 'visibility: hidden')
-
 			document.body.appendChild(video);
 
 			canvas.setAttribute('style', 'width: 300px; display: none;');
