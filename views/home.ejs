@@ -64,17 +64,21 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Room Name:</td>
-                                                    <td>Capacity:</td>
+													<td>Capacity:</td>
+													<td></td>
                                                 </tr>
                                                 <% for (var room in allRooms) { %>
                                                 <tr>
-                                                    <% if (allRooms[room].length == 2) { %>
-                                                        <td><button disabled = true onclick= "join(this)" value='<%=room%>'><%=room%></button></td>
-                                                    <% } else { %>
-                                                        <td><button onclick= "join(this)" value='<%=room%>'><%=room%></button></td>
-                                    
-                                                    <% } %>
-                                                    <td><%= allRooms[room].length %>/2</td>
+													<td><h3 style='font-weight:200'><%=room%></h3></td>                                    
+													<td><h3 style='font-weight:200'><%= allRooms[room].length %>/2</h3></td>
+													<% if (allRooms[room].length == 2) { %>
+														<td><button disabled = true onclick= "join(this)" value='<%=room%>'>Join</button></td>
+													<% } else { %>
+														<td><button  onclick= "join(this)" value='<%=room%>'>Join</button></td>
+
+													<% } %>
+
+
                                                 </tr>
                                                 <% } %>
                                             </tbody>
