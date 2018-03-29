@@ -65,6 +65,9 @@ app.get('/template', function(req, res) {
 app.get('/motion', function(req, res){ 
     res.render('motion'); 
 });
+app.get('/elements', function(req, res){ 
+    res.render('elements'); 
+});
 
 app.get('/existing/:url', function(req, res) {
     console.log(req.params.url)
