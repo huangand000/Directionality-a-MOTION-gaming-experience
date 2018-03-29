@@ -15,7 +15,6 @@
 					<header id="header">
                         <div class="logo">
                             <span class="icon fa-arrows"></span>
-
 						</div>
 						<div class="content">
 							<div class="inner">
@@ -32,60 +31,59 @@
 
 				<!-- Main -->
 					<div id="main">
+					<!-- Intro -->
+						<article id="server">
+							<h1 class="major">Server</h1>
+							<h3 >Create</h3>
+							<div>
+								<form action='/motion' id="createform">
+									<div class="field half first">
+										<!-- <label>Display Name:</label> -->
+										<input type='text' name='user_name' placeholder="Display Name">
+									</div>
+									<div class="field half">
+										<!-- <label>Room Name:</label> -->
+										<input type='text' name='room_name' placeholder="Room Name">								
+									</div>
+									<div>
+										<button id="longbutton">Create room</button>
+										<!-- <input type='submit' value='Create room'> -->
+									</div>
+							    </form>
+							</div>
+						    
+						<div class='existing'>
+							<h3>Join Game</h3>
+							<div>
+								<!-- <label>Display Name:</label> -->
+								<input type='text' name='user_name' placeholder="Display Name">
+							</div>
+							<br>
+								<table>
+									<tbody>
+										<tr>
+											<td style='text-align: center;'>Room Name</td>
+											<td style='text-align: center;'>Capacity</td>
+											<td></td>
+										</tr>
+										<% for (var room in allRooms) { %>
+										<tr>
+											<td style='text-align: center;'><h3 style='font-weight:200'><%=room%></h3></td>                                    
+											<td style='text-align: center;'><h3 style='font-weight:200'><%= allRooms[room].length %>/2</h3></td>
+											<% if (allRooms[room].length == 2) { %>
+												<td style='text-align: center;'><button disabled = true onclick= "join(this)" value='<%=room%>'>Join</button></td>
+											<% } else { %>
+												<td style='text-align: center;'><button  onclick= "join(this)" value='<%=room%>'>Join</button></td>
 
-						<!-- Intro -->
-							<article id="server">
-								<h1 class="major">Server</h1>
-								<h3 >Create</h3>
-								<div>
-									<form action='/motion' id="createform">
-										<div class="field half first">
-											<!-- <label>Display Name:</label> -->
-											<input type='text' name='user_name' placeholder="Display Name">
-										</div>
-										<div class="field half">
-											<!-- <label>Room Name:</label> -->
-											<input type='text' name='room_name' placeholder="Room Name">								
-										</div>
-										<div>
-											<button id="longbutton">Create room</button>
-											<!-- <input type='submit' value='Create room'> -->
-										</div>
-								    </form>
-								</div>
-							    
-                            <div class='existing'>
-								<h3>Join Game</h3>
-								<div>
-									<!-- <label>Display Name:</label> -->
-									<input type='text' name='user_name' placeholder="Display Name">
-								</div>
-								<br>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td style='text-align: center;'>Room Name</td>
-													<td style='text-align: center;'>Capacity</td>
-													<td></td>
-                                                </tr>
-                                                <% for (var room in allRooms) { %>
-                                                <tr>
-													<td style='text-align: center;'><h3 style='font-weight:200'><%=room%></h3></td>                                    
-													<td style='text-align: center;'><h3 style='font-weight:200'><%= allRooms[room].length %>/2</h3></td>
-													<% if (allRooms[room].length == 2) { %>
-														<td style='text-align: center;'><button disabled = true onclick= "join(this)" value='<%=room%>'>Join</button></td>
-													<% } else { %>
-														<td style='text-align: center;'><button  onclick= "join(this)" value='<%=room%>'>Join</button></td>
-
-													<% } %>
+											<% } %>
 
 
-                                                </tr>
-                                                <% } %>
-                                            </tbody>
-                                        </table>
-                                        </div>
-							</article>
+										</tr>
+										<% } %>
+									</tbody>
+								</table>
+							    </div>
+						</article>
 					</div>
 
 				<!-- Footer -->
@@ -105,10 +103,6 @@
             <script src="static/js/main.js"></script>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
             <script>
-                $('#room').on('click', function() {
-                    
-                })
-
                 function join(obj, room) {
                     console.log(obj.value)
                     var url = $.param({
@@ -118,6 +112,5 @@
                     window.location.href = '/motion?' + url
                 }
             </script>
-
 	</body>
 </html>

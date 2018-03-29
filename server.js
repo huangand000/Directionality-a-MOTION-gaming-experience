@@ -68,6 +68,9 @@ app.get('/motion', function(req, res){
 app.get('/elements', function(req, res){ 
     res.render('elements'); 
 });
+app.get('/tempmotion', function(req, res){ 
+    res.render('tempmotion'); 
+});
 
 app.get('/existing/:url', function(req, res) {
     console.log(req.params.url)

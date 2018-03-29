@@ -126,8 +126,9 @@ window.gest = (function (window) {
 			
 			video.width = 300;
 			video.height = 225;
-			// video.setAttribute('style', '-webkit-transform: scaleX(-1); transform: scaleX(-1);'); //mirrors the video
-			video.setAttribute('style', 'visibility: hidden')
+			video.setAttribute('style', '-webkit-transform: scaleX(-1); transform: scaleX(-1);'); //mirrors the video
+			// video.setAttribute('style', 'visibility: hidden')
+
 			document.body.appendChild(video);
 
 			canvas.setAttribute('style', 'width: 300px; display: none;');
@@ -634,9 +635,9 @@ window.gest = (function (window) {
 				document.body.appendChild(settings.debug.canvas);
 				settings.debug.context = settings.debug.canvas.getContext('2d');
 
-				// settings.debug.canvas.setAttribute('style', 'width: 300px; display: block;');
-				// video.setAttribute('style', 'visibility: visible');
-				// canvas.setAttribute('style', 'visibility: visible');
+				settings.debug.canvas.setAttribute('style', 'width: 300px; display: block;');
+				video.setAttribute('style', 'visibility: visible');
+				canvas.setAttribute('style', 'visibility: visible');
 			} else {
 				settings.debug.canvas.setAttribute('style', 'display: none;');
 				settings.debug.canvas.parentNode.removeChild(settings.debug.canvas);

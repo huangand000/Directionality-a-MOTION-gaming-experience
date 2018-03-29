@@ -1,0 +1,98 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>MDDR</title>
+        <link type='text/css' media="screen, projection" rel="stylesheet" href="static/css/main.css" />
+        <noscript><link type='text/css' rel="stylesheet" href="static/css/noscript.css" /></noscript>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src='/static/js/deparam.js'></script>
+		<script src='/static/js/gest.js'></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script>var socket = io.connect(); </script>
+		<script>
+			socket.on('connect', function() {
+			var params = jQuery.deparam(window.location.search);
+				socket.emit('join', params, function(err) {
+					if (err) {
+						alert(err);
+						window.location.href = '/';
+					} else {
+						console.log('No error')
+					}
+				})
+				socket.on('disconnect', function() {
+
+				}) 
+				
+			})
+		</script>
+		<script src='/static/js/voice.js'></script>
+		<script src='/static/js/game_class.js'></script>
+		<script src='/static/js/game_manager.js'></script>
+		<script src='/static/js/arrows.js'></script>
+		<script src='/static/js/arrow_manager.js'></script>
+		<!-- <script src="/static/js/jsRev.js" type="text/javascript"></script> -->
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	</head>
+
+	<body>
+        <article id="server">
+        <div id="stages">
+            <div id="stage1" style='float:left; display: inline-block;'>
+                <div class="stage" style='display: inline-block'>
+                    <h1 id="timer"></h1>
+                    <h1 id='score' >0</h1>
+                </div> 
+                <!-- <div class="controls" style='width:300px; margin: 0px;'> -->
+                <div class="controls" >
+                    <img id="left" src="/static/img/arrows/staticLeft.png">
+                    <img id="up" src="/static/img/arrows/staticUp.png">
+                    <img id="down" src="/static/img/arrows/staticDown.png">
+                    <img id="right" src="/static/img/arrows/staticRight.png">
+                </div> 
+            </div>
+
+            <div id="stage2" style='float:right'>
+                <div class="stage2" style='display: inline-block'>
+                    <h1 id="timer"></h1>
+                    <h1 id='score' >0</h1>
+                </div> 
+                <div class="controls2">
+                    <img id="left" src="/static/img/arrows/staticLeft.png">
+                    <img id="up" src="/static/img/arrows/staticUp.png">
+                    <img id="down" src="/static/img/arrows/staticDown.png">
+                    <img id="right" src="/static/img/arrows/staticRight.png">
+                </div> 
+            </div>
+        </div>
+        
+		<audio id='audio'> 
+			<source src='/static/img/music.mp3' type='audio/mpeg'>
+		</audio>
+		<h1 id="type" style='color:red; position:relative; bottom: 800px; left: 200px;' ></h1>
+		<h1 id="type2" style='color:red; position:relative; bottom: 800px; left: 700px;' ></h1>
+
+
+		<div id='buttons'>
+            <div id='scoreboard'></div>
+            <div>
+                <select id='difficulty' style="width:33%; display:inline-block">
+                    <option>easy</option>
+                    <option>medium</option>
+                    <option>hard</option>
+                    <option>legendary</option>
+                </select>
+                <select id='mode' style="width:33%; display:inline-block">
+                    <option>normal</option>
+                    <option>motion</option>
+                </select>
+                <button id='start' style="width:16%; display:inline-block">Start</button>			
+
+            </div>
+		</div>
+		<!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+        </div>
+	</body>
+</html>
