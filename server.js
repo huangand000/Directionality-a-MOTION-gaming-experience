@@ -108,31 +108,33 @@ io.sockets.on('connection', function (socket) {
             console.log('AFTER', rooms[room])
             console.log(socket.id, ' Disconnectedd')
         })
+        socket.on("gotResult", function (data){
+            console.log('Got result: ', data.result);
+            console.log(socket)
+            io.sockets.in(params.room_name).emit('emitResult', data)
+        });
+        socket.on("gameStart", function (id){
+            count++;
+            console.log(count)
+            if (count == 2) {
+            io.sockets.in(params.room_name).emit('gameStarting')
+                count = 0;
+            }
+        });
     })
     
-    socket.on("gotResult", function (data){
-        console.log('Got result: ', data.result);
-        socket.broadcast.emit('emitResult', data)
-    });
-    socket.on("gameStart", function (id){
-        count++;
-        console.log(count)
-        if (count == 2) {
-            io.emit('gameStarting');
-            count = 0;
-        }
-    });
-    socket.on("checkArrow", function (arrow){
-        console.log("ARROWWOWWOOWOWOWOWOWOW", arrow)
-        socket.emit('sendArrow', arrow);
+    
+    // socket.on("checkArrow", function (arrow){
+    //     console.log("ARROWWOWWOOWOWOWOWOWOW", arrow)
+    //     socket.emit('sendArrow', arrow);
 
-    });
-    socket.on("newNote", function (notes){
-        console.log("notessss", notes);
-        socket.emit('updatedNotes', notes);
+    // });
+    // socket.on("newNote", function (notes){
+    //     console.log("notessss", notes);
+    //     socket.emit('updatedNotes', notes);
 
-        // io.emit('updatedNotes', notes);
-    });
+    //     // io.emit('updatedNotes', notes);
+    // });
 });
 
 
