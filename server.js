@@ -15,7 +15,7 @@ const session = require('express-session');
 app.use(session({secret: 'codingdojo'}));
 var server = http.createServer(app)
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/ddrdb');
+// mongoose.connect('mongodb://localhost/ddrdb');
 mongoose.Promise = global.Promise
 var path = require("path");
 var io  = require('socket.io').listen(server);
