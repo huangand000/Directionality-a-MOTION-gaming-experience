@@ -6,8 +6,13 @@ $(document).ready(function () {
         gameplay();
     })
 
+    socket.on('ready', function() {
+        $('#type2').html("READY!")	
+    })
+
     $('#start').on('click', function() {
-        socket.emit('gameStart', {socket:socket.id})   
+        $('#start').attr('disabled', true)
+        socket.emit('gameStart')   
     })
     function gameplay(){
         i = 5;
@@ -61,11 +66,15 @@ $(document).ready(function () {
                         }
                     } else {
                         $('#timer').html('');
+                        $('#type').html('');
+                        $('#type2').html('');
                         $('.stage').html('')
                         $('.stage2').html('')
                         $('#audio')[0].pause();
                         $('#audio')[0].currentTime = 0;
                         clearInterval(loop)
+                        $('#start').attr('disabled', false);
+                        $('#start').html('Play Again');
                         // create chart
                         var ctx = document.getElementById("myChart").getContext('2d');
                         var myChart = new Chart(ctx, {
@@ -99,7 +108,6 @@ $(document).ready(function () {
                                 maintainAspectRatio: false,
                             }
                         });
-                        $('#start').attr('disabled', false);
                     }
                 }, 20, counter);
             }
