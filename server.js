@@ -55,6 +55,9 @@ app.get('/', function(req, res){
     res.render('home', {allRooms: rooms}); 
 });
 
+app.get('/template', function(req, res) {
+    res.render('template', {allRooms: rooms});
+})
 
 // app.get('/index.html', function(req, res){ res.sendfile('newclient.html'); });
 // app.get('/client.html', function(req, res){ res.sendfile('newclient.html'); });
@@ -69,6 +72,7 @@ app.get('/existing/:url', function(req, res) {
     console.log('REQ BODY', req.body)
     // res.render('/motion/)
 });
+
 
 app.get('/ddr', function(req, res) {
     res.render('jsRev');
