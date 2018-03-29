@@ -133,6 +133,8 @@ io.sockets.on('connection', function (socket) {
             if (count == 2) {
             io.sockets.to(params.room_name).emit('gameStarting')
                 count = 0;
+            } else {
+                socket.broadcast.to(params.room_name).emit('ready')
             }
         });
     })
