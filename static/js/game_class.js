@@ -86,10 +86,6 @@ class Game {
             this.score -=10;
         }
         socket.emit('gotResult', {result: $("#type").text()})
-        socket.on('emitResult', function(data) {
-            console.log('Emitted result: ', data.result)
-            $('#type2').html(data.result)
-        })
     }
 
 }

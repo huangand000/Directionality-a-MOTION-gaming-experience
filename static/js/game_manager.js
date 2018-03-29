@@ -1,31 +1,13 @@
 $(document).ready(function () {
+
     var arrowManager = new ArrowManager();
     var game = new Game(arrowManager);
-    var ready = false;
     socket.on('gameStarting', function() {
         gameplay();
     })
-    socket.on('updatedNotes', function(notes) {
-        // arrowManager.notes = [];
-        // console.log('recieved notes!!!!!!!!!', notes);
-        // for (var i = 0; i < notes.length; i++ ) {
-        //     console.log('notes direction', notes[i].direction);
-        //     arrowManager.notes.push(new Arrow(notes[i].direction));
-        // }
-        // console.log('arrow managerrrrrr', arrowManager.notes);
-        // // console.log('recieved notes!!!!!!!!!', notes);
-        // console.log('arrowmanager notes', arrowManager.notes)
-
-        // // arrowManager.notes = notes;
-    })
-    socket.on('sendArrow', function(arrow) {
-        console.log(arrow);
-    })
 
     $('#start').on('click', function() {
-        ready = true;
         socket.emit('gameStart', {socket:socket.id})   
-        // socket.emit('checkArrow', new Arrow('up')); 
     })
     function gameplay(){
         i = 5;
@@ -44,7 +26,6 @@ $(document).ready(function () {
                 var counter = 0;
                 var loop = setInterval(function() {
                     counter++
-                    // console.log("Counter = ", counter)
                     if (counter == 850) {
                         $('#timer').html('3');
                     } else if (counter == 900) {
@@ -66,12 +47,16 @@ $(document).ready(function () {
                         } else if ($('#difficulty').val() == 'legendary') {
                             spawnRate = 10;
                             speed = '-=10px'
-                        }
-                        socket.emit('newNote', arrowManager.notes)  
-                        
-                        // $('.stage2').html($('.stage').html());
+                        }                        
+                        $('.stage2').html($('.stage').html());
                         arrowManager.render(spawnRate, speed);
-                        // console.log('EMITING ARROWMAN.NOTES', arrowManager.notes);
+                        if (arrowManager.notes[0].image.position().top < -10) {
+                            game.hitTypes['MISS']++;
+                            arrowManager.destroy();
+                            socket.emit('gotResult2')
+                            $("#type").html('MISS')
+                            game.updateBoard();
+                        }
                     } else {
                         $('#timer').html('');
                         $('.stage').html('')
@@ -121,10 +106,16 @@ $(document).ready(function () {
             }
         }, 1000)
     }
-    
+    socket.on('emitResult2', function() {
+        console.log('Emitted result: ')
+        $('#type2').html('MISS')
+    })
+    socket.on('emitResult', function(data) {
+        console.log('Emitted result: ', data.result)
+        $('#type2').html(data.result)
+    })
     $('#start').on('click', function() {
         if ($('#mode').val() == 'motion') {
-            game.motion();
             var score = 0;
             var streak = false;
             gest.options.subscribeWithCallback(function(gesture) {

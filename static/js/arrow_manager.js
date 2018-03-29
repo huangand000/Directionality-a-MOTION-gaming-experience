@@ -1,5 +1,5 @@
  class ArrowManager {
-    constructor(){
+    constructor(game){
         this.notes = [];
         this.frame = 0;
     }
@@ -22,13 +22,15 @@
         }
         for (var i = 0; i < this.notes.length; i++ ) {
             this.notes[i].image.css("top", speed);
-            if (this.notes[i].image.position().top < -10) {
-
-                this.destroy();
-            }
         }
-
+        // if (this.notes[0].image.position().top < -10) {
+        //     // this.game.hitTypes['MISS']++;
+        //     this.destroy();
+        //     socket.emit('gotResult2')
+        //     $("#type").html('MISS')
+        // }
     }
+    
 
     destroy() {
         var temp = this.notes.splice(0,1);
