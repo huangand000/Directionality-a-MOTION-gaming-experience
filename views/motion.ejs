@@ -68,10 +68,12 @@
 					<!-- <video preload="auto"  id="video" autoplay="autoplay" loop="loop" controls muted style="width: 100%; height: 100%;">
 							<source src="static/img/vid.mp4#t=30,100" type="video/mp4">
 						</video> -->
-				<div class="stage" data-video='/static/img/vid.mp4' style='display: inline-block;'>
+				<canvas id="myChart" width="450" height="450" style="display:none"></canvas>
+
+				<div id="stageL" class="stage" data-video='/static/img/vid.mp4' style='display: inline-block;'>
 					<h1 id="timer"></h1>
 				</div> 
-				<div class="controls" style='width:300px; margin: 0px;'>
+				<div id="controlL" class="controls" style='width:300px; margin: 0px;'>
 					<img id="left" src="/static/img/arrows/staticLeft.png">
 					<img id="up" src="/static/img/arrows/staticUp.png">
 					<img id="down" src="/static/img/arrows/staticDown.png">
@@ -79,11 +81,12 @@
 				</div> 
 			</div>
 			
-			<div id="stageRight" style="float:right; margin-top: 20px;">
-				<div class="stage2" style='display: inline-block; float: right; padding: 6px;'>
+			<div id="stageRight" style="float:right; margin-top: 30px;">
+
+				<div id="stageR" class="stage2" style='display: inline-block; float: right;'>
 					<h1 id="timer"></h1>
 				</div> 
-				<div class="controls2">
+				<div id="controlR" class="controls2">
 					<img id="left" src="/static/img/arrows/staticLeft.png">
 					<img id="up" src="/static/img/arrows/staticUp.png">
 					<img id="down" src="/static/img/arrows/staticDown.png">
@@ -91,7 +94,7 @@
 				</div> 
 			</div>
 		</div>
-		<div id='line' style='border-top: 1px solid white; width: 513px; position: absolute; bottom: 817px; left: 919px;'></div>
+		<div id='line' style='border-top: 1px solid white; width: 501px; position: absolute; bottom: 817px; left: 931px;'></div>
 		<div id='scoreboard' style='position:absolute; bottom: 360px'></div>
 
 
@@ -102,13 +105,12 @@
 			<source id='thisSong' src='/static/img/music.mp3' type='audio/mpeg'>
 		</audio>
 
-		<div style='position:absolute; bottom: 390px; left: 200px;'>
+		<div style='position:absolute; bottom: 500px; left: 200px;'>
 			<h1 id="type"></h1>
 		</div>
-		<div style='position:relative; bottom: 880px; margin-right: 180px;float: right'>
+		<div style='position:relative; bottom: 920px; margin-right: 190px;float: right'>
 			<h1 id="type2"></h1>
 		</div>
 		
-		<canvas id="myChart" width="400" height="400"></canvas>
 	</body>
 </html>
