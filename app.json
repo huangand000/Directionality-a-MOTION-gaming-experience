@@ -1,0 +1,8 @@
+{
+  "name": "Directionality",
+  "description": "a MOTION gaming experience",
+  "repository": "https://github.com/huangand000/Directionality-a-MOTION-gaming-experience",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}
