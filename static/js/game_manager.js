@@ -173,50 +173,50 @@ $(document).ready(function () {
 
                 if(arrowManager.notes[0]) {
                     if(gesture.direction == 'Left') {
-                        $('#left').attr('src', '/static/img/arrows/left2.png')
+                        $('#left').attr('src', '/static/img/arrows/left3.png')
                             setTimeout(function() {
-                                $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                                $('#left').attr('src', '/static/img/arrows/left2.png')
                             }, 100)
                         if (arrowManager.notes[0].direction == "left" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#left').attr('src', '/static/img/arrows/left3.png')
                                 setTimeout(function() {
-                                    $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                                    $('#left').attr('src', '/static/img/arrows/left2.png')
                                 }, 200)
                         }
                     }
                     if (gesture.direction == 'Up' || gesture.direction == 'Long up') {
-                        $('#up').attr('src', '/static/img/arrows/up2.png')
+                        $('#up').attr('src', '/static/img/arrows/up3.png')
                             setTimeout(function() {
-                                $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                                $('#up').attr('src', '/static/img/arrows/up2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "up" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#up').attr('src', '/static/img/arrows/up3.png')
                                 setTimeout(function() {
-                                    $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                                    $('#up').attr('src', '/static/img/arrows/up2.png')
                             }, 200)
                         } 
                     }
                     if (gesture.direction == 'Down' || gesture.direction == 'Long down') {
-                        $('#down').attr('src', '/static/img/arrows/down2.png')
+                        $('#down').attr('src', '/static/img/arrows/down3.png')
                             setTimeout(function() {
-                                $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                                $('#down').attr('src', '/static/img/arrows/down2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "down" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#down').attr('src', '/static/img/arrows/down3.png')
                                 setTimeout(function() {
-                                    $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                                    $('#down').attr('src', '/static/img/arrows/down2.png')
                             }, 200)
                         } 
                     }
                     if (gesture.direction == 'Right') {
-                        $('#right').attr('src', '/static/img/arrows/right2.png')
+                        $('#right').attr('src', '/static/img/arrows/right3.png')
                             setTimeout(function() {
-                                $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                                $('#right').attr('src', '/static/img/arrows/right2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "right" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#right').attr('src', '/static/img/arrows/right3.png')
                                 setTimeout(function() {
-                                    $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                                    $('#right').attr('src', '/static/img/arrows/sright2.png')
                             }, 200)
                         }
                     } 
@@ -236,14 +236,14 @@ $(document).ready(function () {
                 if(arrowManager.notes[0]) {
                     if (event.keyCode == 37) {
                         event.preventDefault();
-                        $('#left').attr('src', '/static/img/arrows/left2.png')
+                        $('#left').attr('src', '/static/img/arrows/left3.png')
                         setTimeout(function() {
-                            $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                            $('#left').attr('src', '/static/img/arrows/left2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "left" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#left').attr('src', '/static/img/arrows/left3.png')
                             setTimeout(function() {
-                                $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                                $('#left').attr('src', '/static/img/arrows/left2.png')
                             }, 200)
                         } 
                         game.updateScore();
@@ -252,14 +252,14 @@ $(document).ready(function () {
                     }
                     if (event.keyCode == 38) {
                         event.preventDefault();
-                        $('#up').attr('src', '/static/img/arrows/up2.png')
+                        $('#up').attr('src', '/static/img/arrows/up3.png')
                         setTimeout(function() {
-                            $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                            $('#up').attr('src', '/static/img/arrows/up2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "up" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#up').attr('src', '/static/img/arrows/up3.png')
                             setTimeout(function() {
-                                $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                                $('#up').attr('src', '/static/img/arrows/up2.png')
                             }, 200)
                         } 
                         game.updateScore();
@@ -268,14 +268,14 @@ $(document).ready(function () {
                     }
                     if(event.keyCode == 40) {
                         event.preventDefault();
-                        $('#down').attr('src', '/static/img/arrows/down2.png')
+                        $('#down').attr('src', '/static/img/arrows/down3.png')
                         setTimeout(function() {
-                            $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                            $('#down').attr('src', '/static/img/arrows/down2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "down" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#down').attr('src', '/static/img/arrows/down3.png')
                             setTimeout(function() {
-                                $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                                $('#down').attr('src', '/static/img/arrows/down2.png')
                             }, 200)
                         } 
                         game.updateScore();
@@ -285,14 +285,14 @@ $(document).ready(function () {
                     }
                     if(event.keyCode == 39) {
                         event.preventDefault();
-                        $('#right').attr('src', '/static/img/arrows/right2.png')
+                        $('#right').attr('src', '/static/img/arrows/right3.png')
                         setTimeout(function() {
-                            $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                            $('#right').attr('src', '/static/img/arrows/right2.png')
                         }, 100)
                         if (arrowManager.notes[0].direction == "right" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#right').attr('src', '/static/img/arrows/right3.png')
                             setTimeout(function() {
-                                $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                                $('#right').attr('src', '/static/img/arrows/right2.png')
                             }, 200)
                         } 
                         game.updateScore();

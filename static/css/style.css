@@ -4,9 +4,8 @@ body {
 
 #menu{
 	position: absolute;
-	left:41%;
+	left:39%;
 	text-align: center;
-
 }
 /* #webcamDiv{
 	position: absolute;
@@ -18,9 +17,6 @@ select {
 	text-align-last: center
 }
 
-#start {
-	margin-top: 20px;
-}
 #score{
 	margin-top: 440px;
 }
@@ -29,13 +25,17 @@ select {
 	height: 500px;
 	width: 500px;
 	text-align: center;
+	border: 1px solid white;
+	
 }
 
 .stage2 {
 vertical-align: top;
 position: relative;
-bottom: 605px; 
+bottom: 608px; 
 /* left: 600px; */
+margi
+
 }
 
 .controls, .controls2 {

@@ -12,7 +12,7 @@ class Arrow {
             this.xPos = '322px'
         }
 
-        this.image = $("<img src='/static/img/arrows/" + this.direction + ".gif'/>");
+        this.image = $("<img src='/static/img/arrows/" + this.direction + "2.png'/>");
 
         this.image.css({
             position: "absolute",

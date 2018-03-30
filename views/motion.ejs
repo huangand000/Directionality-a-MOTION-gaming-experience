@@ -43,22 +43,22 @@
 		<h2 style='display: inline-block' id='score' >0</h2>
 		<h2 style='display: inline-block; margin-left: 50%;' id='score2' >0</h2>
 
-		<div id='buttons'>
-			<select id='difficulty'>
+		<div id='buttons' >
+			<select id='difficulty' style='margin-bottom: 10px;'>
 				<option>easy</option>
 				<option>medium</option>
 				<option>hard</option>
 				<option>legendary</option>
 			</select>
-			<select id='mode'>
+			<select id='mode' style='margin-bottom: 10px;'>
 				<option>normal</option>
 				<option>motion</option>
 			</select>
-			<select id='song'>
+			<select id='song' style='margin-bottom: 10px;'>
 				<option>Freaky Friday</option>
 				<option>Walk it like I Talk it</option>
 			</select>
-			<button id='start'>Start</button>
+			<button style='width: 300px;'id='start'>Start</button>
 		</div>
 		</div>
 
@@ -70,14 +70,14 @@
 						</video> -->
 				<canvas id="myChart" width="450" height="450" style="display:none"></canvas>
 
-				<div id="stageL" class="stage" data-video='/static/img/vid.mp4' style='display: inline-block; background-color: blue;'>
+				<div id="stageL" class="stage" data-video='/static/img/vid.mp4' style='display: inline-block;'>
 					<h1 id="timer"></h1>
 				</div> 
 				<div id="controlL" class="controls" style='width:300px; margin: 0px;'>
-					<img id="left" src="/static/img/arrows/staticLeft.png">
-					<img id="up" src="/static/img/arrows/staticUp.png">
-					<img id="down" src="/static/img/arrows/staticDown.png">
-					<img id="right" src="/static/img/arrows/staticRight.png">
+					<img id="left" src="/static/img/arrows/left2.png">
+					<img id="up" src="/static/img/arrows/up2.png">
+					<img id="down" src="/static/img/arrows/down2.png">
+					<img id="right" src="/static/img/arrows/right2.png">
 				</div> 
 			</div>
 			
@@ -88,13 +88,14 @@
 					<h1 id="timer"></h1>
 				</div> 
 				<div id="controlR" class="controls2">
-					<img id="left" src="/static/img/arrows/staticLeft.png">
-					<img id="up" src="/static/img/arrows/staticUp.png">
-					<img id="down" src="/static/img/arrows/staticDown.png">
-					<img id="right" src="/static/img/arrows/staticRight.png">
+					<img id="left" src="/static/img/arrows/left2.png">
+					<img id="up" src="/static/img/arrows/up2.png">
+					<img id="down" src="/static/img/arrows/down2.png">
+					<img id="right" src="/static/img/arrows/right2.png">
 				</div> 
 			</div>
 		</div>
+		<div id='line' style='border-top: 1px solid white; width: 502px; position: absolute; bottom: 746px; left: 930px;'></div>
 		<div id='scoreboard' style='position:absolute; bottom: 280px'></div>
 
 
@@ -105,10 +106,10 @@
 			<source id='thisSong' src='/static/img/music.mp3' type='audio/mpeg'>
 		</audio>
 
-		<div style='position:absolute; bottom: 390px; left: 200px;'>
+		<div style='position:absolute; bottom: 500px; left: 200px;'>
 			<h1 id="type"></h1>
 		</div>
-		<div style='position:relative; bottom: 880px; margin-right: 180px;float: right'>
+		<div style='position:relative; bottom: 920px; margin-right: 190px;float: right'>
 			<h1 id="type2"></h1>
 		</div>
 		
