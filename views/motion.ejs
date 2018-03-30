@@ -38,8 +38,8 @@
 		</style>
 	</head>
 	<body>
-		<div id="menu" style='bottom: 400px;'>
 		<div id="webcamDiv"></div>
+		<div id="menu" style='bottom: 100px;'>
 		<h2 style='display: inline-block' id='score' >0</h2>
 		<h2 style='display: inline-block; margin-left: 40%;' id='score2' >0</h2>
 
@@ -68,10 +68,12 @@
 					<!-- <video preload="auto"  id="video" autoplay="autoplay" loop="loop" controls muted style="width: 100%; height: 100%;">
 							<source src="static/img/vid.mp4#t=30,100" type="video/mp4">
 						</video> -->
-				<div class="stage" data-video='/static/img/vid.mp4' style='display: inline-block; background-color: blue;'>
+				<canvas id="myChart" width="450" height="450" style="display:none"></canvas>
+
+				<div id="stageL" class="stage" data-video='/static/img/vid.mp4' style='display: inline-block; background-color: blue;'>
 					<h1 id="timer"></h1>
 				</div> 
-				<div class="controls" style='width:300px; margin: 0px;'>
+				<div id="controlL" class="controls" style='width:300px; margin: 0px;'>
 					<img id="left" src="/static/img/arrows/staticLeft.png">
 					<img id="up" src="/static/img/arrows/staticUp.png">
 					<img id="down" src="/static/img/arrows/staticDown.png">
@@ -80,10 +82,12 @@
 			</div>
 			
 			<div id="stageRight" style="float:right; margin-top: 20px;">
-				<div class="stage2" style='display: inline-block; float: right;'>
+				<canvas id="myChart" width="450" height="450" style="display:none"></canvas>
+
+				<div id="stageR" class="stage2" style='display: inline-block; float: right;'>
 					<h1 id="timer"></h1>
 				</div> 
-				<div class="controls2">
+				<div id="controlR" class="controls2">
 					<img id="left" src="/static/img/arrows/staticLeft.png">
 					<img id="up" src="/static/img/arrows/staticUp.png">
 					<img id="down" src="/static/img/arrows/staticDown.png">
@@ -108,6 +112,5 @@
 			<h1 id="type2"></h1>
 		</div>
 		
-		<canvas id="myChart" width="400" height="400"></canvas>
 	</body>
 </html>

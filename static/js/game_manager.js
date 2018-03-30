@@ -11,6 +11,16 @@ $(document).ready(function () {
     })
     var song = '';
     $('#start').on('click', function() {
+        document.getElementById("stageL").style.display="inline-block";
+        document.getElementById("controlL").style.display="block";
+        document.getElementById("stageR").style.display="inline-block";
+        document.getElementById("controlR").style.display="block";
+        document.getElementById("type").style.display="block";
+        document.getElementById("type2").style.display="block";
+
+        document.getElementById("scoreboard").style.display="block";
+
+        document.getElementById("myChart").style.display="none";
         if ($('#song').val() == 'Walk it like I Talk it') {
             $('#thisSong').attr('src', '/static/img/walk.mp3')
             $("#audio")[0].load();
@@ -84,6 +94,15 @@ $(document).ready(function () {
                         $('#start').attr('disabled', false);
                         $('#start').html('Play Again');
                         // create chart
+                        document.getElementById("stageL").style.display="none";
+                        document.getElementById("controlL").style.display="none";
+                        document.getElementById("stageR").style.display="none";
+                        document.getElementById("controlR").style.display="none";
+                        document.getElementById("scoreboard").style.display="none";
+                        document.getElementById("type").style.display="none";
+                        document.getElementById("type2").style.display="none";
+
+                        document.getElementById("myChart").style.display="inline-block";
                         var ctx = document.getElementById("myChart").getContext('2d');
                         var myChart = new Chart(ctx, {
                             type: 'doughnut',
@@ -112,8 +131,9 @@ $(document).ready(function () {
                                 }]
                             },
                             options: {
-                                responsive: true,
+                                responsive: false,
                                 maintainAspectRatio: false,
+                                legend:{display: true,labels:{fontSize:20}}
                             }
                         });
                     }

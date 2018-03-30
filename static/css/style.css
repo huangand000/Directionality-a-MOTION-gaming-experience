@@ -8,11 +8,11 @@ body {
 	text-align: center;
 
 }
-/* #webcamDiv{
+#webcamDiv{
 	position: absolute;
     left:41%;
 
-} */
+}
 
 select {
 	text-align-last: center
