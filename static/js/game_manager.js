@@ -11,6 +11,7 @@ $(document).ready(function () {
     })
     var song = '';
     $('#start').on('click', function() {
+        document.getElementById("line").style.display="block";
         document.getElementById("stageL").style.display="inline-block";
         document.getElementById("controlL").style.display="block";
         document.getElementById("stageR").style.display="inline-block";
@@ -21,11 +22,11 @@ $(document).ready(function () {
         document.getElementById("myChart").style.display="none";
         document.getElementById("myChart2").style.display="none";
 
-        if ($('#song').val() == 'Walk it like I Talk it') {
-            $('#thisSong').attr('src', '/static/img/walk.mp3')
+        if ($('#song').val() == 'Psycho') {
+            $('#thisSong').attr('src', '/static/img/psycho.mp3')
             $("#audio")[0].load();
-        } else if ($('#song').val() == 'Freaky Friday') {
-            $('#thisSong').attr('src', '/static/img/music.mp3')
+        } else if ($('#song').val() == 'Walk it like I talk it') {
+            $('#thisSong').attr('src', '/static/img/walk.mp3')
             $("#audio")[0].load();
         }
         $('#start').attr('disabled', true)
@@ -48,16 +49,14 @@ $(document).ready(function () {
                 var counter = 0;
                 var loop = setInterval(function() {
                     counter++
-                    if (counter == 850) {
-                        $('#timer').html('3');
-                    } else if (counter == 900) {
-                        $('#timer').html('2');
-                    } else if (counter == 950) {
-                        $('#timer').html('1');
-                    }
+                    // if (counter == 850) {
+                    //     $('#timer').html('3');
+                    // } else if (counter == 900) {
+                    //     $('#timer').html('2');
+                    // } else if (counter == 950) {
+                    //     $('#timer').html('1');
+                    // }
                     if (counter < 1000) {
-                
-
                         //audio[0].play(); changed based on Sprachprofi's comment below
                         $("#audio")[0].oncanplaythrough = $("#audio")[0].play();
                         if ($('#difficulty').val() == 'easy') {
@@ -92,8 +91,11 @@ $(document).ready(function () {
                         $('#audio')[0].pause();
                         $('#audio')[0].currentTime = 0;
                         clearInterval(loop)
+                        $('#line').attr('border', 'none')
                         $('#start').attr('disabled', false);
                         $('#start').html('Play Again');
+                        document.getElementById("line").style.display="none";
+
                         document.getElementById("stageL").style.display="none";
                         document.getElementById("controlL").style.display="none";
                         document.getElementById("stageR").style.display="none";

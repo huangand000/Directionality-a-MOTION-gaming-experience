@@ -41,7 +41,7 @@
 		<div id="menu" style='bottom: 400px;'>
 		<div id="webcamDiv"></div>
 		<h2 style='display: inline-block' id='score' >0</h2>
-		<h2 style='display: inline-block; margin-left: 50%;' id='score2' >0</h2>
+		<h2 style='display: inline-block; margin-left: 35%;' id='score2' >0</h2>
 
 		<div id='buttons' >
 			<select id='difficulty' style='margin-bottom: 10px;'>
@@ -55,8 +55,8 @@
 				<option>motion</option>
 			</select>
 			<select id='song' style='margin-bottom: 10px;'>
-				<option>Freaky Friday</option>
-				<option>Walk it like I Talk it</option>
+				<option>Psycho</option>
+				<option>Walk it like I talk it</option>
 			</select>
 			<button style='width: 300px;'id='start'>Start</button>
 		</div>
@@ -71,7 +71,7 @@
 				<canvas id="myChart" width="450" height="450" style="display:none"></canvas>
 
 				<div id="stageL" class="stage" data-video='/static/img/vid.mp4' style='display: inline-block;'>
-					<h1 id="timer"></h1>
+					<h1 id="timer" style='position:relative; top: 250px;'></h1>
 				</div> 
 				<div id="controlL" class="controls" style='width:300px; margin: 0px;'>
 					<img id="left" src="/static/img/arrows/left2.png">
@@ -85,7 +85,7 @@
 				<canvas id="myChart2" width="450" height="450" style="display:none; position: relative; bottom: 470px; float: right;"></canvas>
 
 				<div id="stageR" class="stage2" style='display: inline-block; float: right;'>
-					<h1 id="timer"></h1>
+					<h1 id="timer" style='position: relative;'></h1>
 				</div> 
 				<div id="controlR" class="controls2">
 					<img id="left" src="/static/img/arrows/left2.png">
@@ -96,21 +96,21 @@
 			</div>
 		</div>
 		<div id='line' style='border-top: 1px solid white; width: 502px; position: absolute; bottom: 746px; left: 930px;'></div>
-		<div id='scoreboard' style='position:absolute; bottom: 280px'></div>
+		<div id='scoreboard' style='position:absolute; bottom: 280px; left: 20px;'></div>
 
 
 		<!-- add controls in audio tag to see control bar -->
 		
 		
 		<audio id='audio'> 
-			<source id='thisSong' src='/static/img/music.mp3' type='audio/mpeg'>
+			<source id='thisSong' src='' type='audio/mpeg'>
 		</audio>
 
-		<div style='position:absolute; bottom: 500px; left: 200px;'>
+		<div style='position:absolute; bottom: 430px; left: 200px;'>
 			<h1 id="type"></h1>
 		</div>
-		<div style='position:relative; bottom: 920px; margin-right: 190px;float: right'>
-			<h1 id="type2"></h1>
+		<div style='position:relative; bottom: 920px; margin-right: 200px;float: right'>
+			<h1 id="type2" style='position: relative; left: 30px;'></h1>
 		</div>
 		
 	</body>
