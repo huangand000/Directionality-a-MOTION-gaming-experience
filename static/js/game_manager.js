@@ -9,6 +9,7 @@ $(document).ready(function () {
     socket.on('ready', function() {
         $('#type2').html("READY!")	
     })
+
     var song = '';
     $('#start').on('click', function() {
         // document.getElementById("line").style.display="block";
@@ -22,10 +23,10 @@ $(document).ready(function () {
         document.getElementById("myChart").style.display="none";
         document.getElementById("myChart2").style.display="none";
 
-        if ($('#song').val() == 'Psycho') {
+        if ($('#song').val() == 'psycho') {
             $('#thisSong').attr('src', '/static/img/psycho.mp3')
             $("#audio")[0].load();
-        } else if ($('#song').val() == 'Walk it like I talk it') {
+        } else if ($('#song').val() == 'walk it') {
             $('#thisSong').attr('src', '/static/img/walk.mp3')
             $("#audio")[0].load();
         }
@@ -56,7 +57,7 @@ $(document).ready(function () {
                     // } else if (counter == 950) {
                     //     $('#timer').html('1');
                     // }
-                    if (counter < 1000) {
+                    if (counter < 1500) {
                         //audio[0].play(); changed based on Sprachprofi's comment below
                         $("#audio")[0].oncanplaythrough = $("#audio")[0].play();
                         if ($('#difficulty').val() == 'easy') {
@@ -145,7 +146,7 @@ $(document).ready(function () {
             if (i == -1) {
                 clearInterval(gameloop);
             }
-        }, 1000)
+        }, 1500)
     }
     socket.on('emitResult2', function() {
         console.log('Emitted result: ')

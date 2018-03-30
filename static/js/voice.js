@@ -25,6 +25,18 @@ recognition.onresult = function(event) {
 
         $("#mode").val(arr[0])
     }
+
+    if (event.results[event.results.length - 1][0].transcript == 'song walk it' )  {
+        let arr = event.results[event.results.length - 1][0].transcript.split(' ');
+        $('#song').val(arr[1] + " " +arr[2])
+    }
+    
+    if (event.results[event.results.length - 1][0].transcript == 'song psycho') {
+        let arr = event.results[event.results.length - 1][0].transcript.split(' ');
+        $('#song').val(arr[1])
+    }
+
+
     if (event.results[event.results.length - 1][0].transcript == 'start game'
         ) {
             $('#start').click();
