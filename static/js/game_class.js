@@ -30,7 +30,6 @@ class Game {
         console.log(this.arrowManager)
         if (this.arrowManager.notes[0].image.position().top > 5 && this.arrowManager.notes[0].image.position().top < 15) {
             // hitbox('PERFECT', 20);
-
             $('#type').html('PERFECT')
             if (this.streak) {
                 this.score+= 20;

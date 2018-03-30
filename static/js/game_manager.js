@@ -163,26 +163,67 @@ $(document).ready(function () {
                     $('#score').html(game.score)
                     game.updateBoard();
                     if(arrowManager.notes[0]) {
-                        if (event.keyCode == 37 && arrowManager.notes[0].direction == "left") {
+                        if (event.keyCode == 37) {
                             event.preventDefault();
-                            game.updateScore();	
-                            game.updateBoard();
-                            $('#score').html(game.score)
-                        }
-                        if (event.keyCode == 38 && arrowManager.notes[0].direction == "up") {
-                            event.preventDefault();
+                            $('#left').attr('src', '/static/img/arrows/left2.png')
+                            setTimeout(function() {
+                                $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "left" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
+                                $('#left').attr('src', '/static/img/arrows/left3.png')
+                                setTimeout(function() {
+                                    $('#left').attr('src', '/static/img/arrows/staticLeft.png')
+                                }, 200)
+                            } 
                             game.updateScore();
                             game.updateBoard();
                             $('#score').html(game.score)
                         }
-                        if (event.keyCode == 40 && arrowManager.notes[0].direction == "down") {
-                            event.preventDefault();
+                        if (event.keyCode == 38) {
+                            $('#up').attr('src', '/static/img/arrows/up2.png')
+                            setTimeout(function() {
+                                $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "up" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
+                                event.preventDefault();
+                                $('#up').attr('src', '/static/img/arrows/up3.png')
+                                setTimeout(function() {
+                                    $('#up').attr('src', '/static/img/arrows/staticUp.png')
+                                }, 200)
+                            } 
                             game.updateScore();
                             game.updateBoard();
                             $('#score').html(game.score)
                         }
-                        if (event.keyCode == 39 && arrowManager.notes[0].direction == "right") {
-                            event.preventDefault();
+                        if(event.keyCode == 40) {
+                            $('#down').attr('src', '/static/img/arrows/down2.png')
+                            setTimeout(function() {
+                                $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "down" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
+                                event.preventDefault();
+                                $('#down').attr('src', '/static/img/arrows/down3.png')
+                                setTimeout(function() {
+                                    $('#down').attr('src', '/static/img/arrows/staticDown.png')
+                                }, 200)
+                            } 
+                            game.updateScore();
+                            game.updateBoard();
+                            $('#score').html(game.score)
+
+                        }
+                        if(event.keyCode == 39) {
+                            $('#right').attr('src', '/static/img/arrows/right2.png')
+                            setTimeout(function() {
+                                $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                            }, 100)
+                            if (arrowManager.notes[0].direction == "right" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
+                                event.preventDefault();
+                                $('#right').attr('src', '/static/img/arrows/right3.png')
+                                setTimeout(function() {
+                                    $('#right').attr('src', '/static/img/arrows/staticRight.png')
+                                }, 200)
+                            } 
                             game.updateScore();
                             game.updateBoard();
                             $('#score').html(game.score)
