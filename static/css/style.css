@@ -13,6 +13,14 @@ body {
     left:41%;
 
 } */
+
+select {
+	text-align-last: center
+}
+
+#start {
+	margin-top: 20px;
+}
 #score{
 	margin-top: 440px;
 }
