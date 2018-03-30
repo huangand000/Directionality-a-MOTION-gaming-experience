@@ -132,6 +132,10 @@ $(document).ready(function () {
         console.log('Emitted result: ', data.result)
         $('#type2').html(data.result)
     })
+    socket.on('getScore', function(score) {
+        console.log('MASDASDASDASDSA', score)
+        $('#score2').html(score.score)
+    })
     $('#start').on('click', function() {
         if ($('#mode').val() == 'motion') {
             var score = 0;

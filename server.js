@@ -127,6 +127,9 @@ io.sockets.on('connection', function (socket) {
             console.log(socket)
             socket.broadcast.to(params.room_name).emit('emitResult2')
         });
+        socket.on("myScore", function(score) {
+            socket.broadcast.to(params.room_name).emit('getScore', {score: score.score})
+        })
         socket.on("gameStart", function (id){
             count++;
             console.log(count)

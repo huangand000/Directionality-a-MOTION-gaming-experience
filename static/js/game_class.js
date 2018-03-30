@@ -85,6 +85,8 @@ class Game {
             this.score -=10;
         }
         socket.emit('gotResult', {result: $("#type").text()})
+        socket.emit('myScore', {score: this.score})
+        console.log('MY SCORE!!!', this.score)
     }
 
 }
