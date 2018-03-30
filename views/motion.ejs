@@ -43,22 +43,22 @@
 		<h2 style='display: inline-block' id='score' >0</h2>
 		<h2 style='display: inline-block; margin-left: 50%;' id='score2' >0</h2>
 
-		<div id='buttons'>
-			<select id='difficulty'>
+		<div id='buttons' >
+			<select id='difficulty' style='margin-bottom: 10px;'>
 				<option>easy</option>
 				<option>medium</option>
 				<option>hard</option>
 				<option>legendary</option>
 			</select>
-			<select id='mode'>
+			<select id='mode' style='margin-bottom: 10px;'>
 				<option>normal</option>
 				<option>motion</option>
 			</select>
-			<select id='song'>
+			<select id='song' style='margin-bottom: 10px;'>
 				<option>Freaky Friday</option>
 				<option>Walk it like I Talk it</option>
 			</select>
-			<button id='start'>Start</button>
+			<button style='width: 300px;'id='start'>Start</button>
 		</div>
 		</div>
 
@@ -68,7 +68,7 @@
 					<!-- <video preload="auto"  id="video" autoplay="autoplay" loop="loop" controls muted style="width: 100%; height: 100%;">
 							<source src="static/img/vid.mp4#t=30,100" type="video/mp4">
 						</video> -->
-				<div class="stage" data-video='/static/img/vid.mp4' style='display: inline-block; background-color: blue;'>
+				<div class="stage" data-video='/static/img/vid.mp4' style='display: inline-block;'>
 					<h1 id="timer"></h1>
 				</div> 
 				<div class="controls" style='width:300px; margin: 0px;'>
@@ -80,7 +80,7 @@
 			</div>
 			
 			<div id="stageRight" style="float:right; margin-top: 20px;">
-				<div class="stage2" style='display: inline-block; float: right;'>
+				<div class="stage2" style='display: inline-block; float: right; padding: 6px;'>
 					<h1 id="timer"></h1>
 				</div> 
 				<div class="controls2">
@@ -91,7 +91,7 @@
 				</div> 
 			</div>
 		</div>
-		<div id='scoreboard' style='position:absolute; bottom: 280px'></div>
+		<div id='scoreboard' style='position:absolute; bottom: 360px'></div>
 
 
 		<!-- add controls in audio tag to see control bar -->
