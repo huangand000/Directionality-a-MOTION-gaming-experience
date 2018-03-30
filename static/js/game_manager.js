@@ -178,12 +178,12 @@ $(document).ready(function () {
                             $('#score').html(game.score)
                         }
                         if (event.keyCode == 38) {
+                            event.preventDefault();
                             $('#up').attr('src', '/static/img/arrows/up2.png')
                             setTimeout(function() {
                                 $('#up').attr('src', '/static/img/arrows/staticUp.png')
                             }, 100)
                             if (arrowManager.notes[0].direction == "up" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
-                                event.preventDefault();
                                 $('#up').attr('src', '/static/img/arrows/up3.png')
                                 setTimeout(function() {
                                     $('#up').attr('src', '/static/img/arrows/staticUp.png')
@@ -194,12 +194,12 @@ $(document).ready(function () {
                             $('#score').html(game.score)
                         }
                         if(event.keyCode == 40) {
+                            event.preventDefault();
                             $('#down').attr('src', '/static/img/arrows/down2.png')
                             setTimeout(function() {
                                 $('#down').attr('src', '/static/img/arrows/staticDown.png')
                             }, 100)
                             if (arrowManager.notes[0].direction == "down" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
-                                event.preventDefault();
                                 $('#down').attr('src', '/static/img/arrows/down3.png')
                                 setTimeout(function() {
                                     $('#down').attr('src', '/static/img/arrows/staticDown.png')
@@ -211,12 +211,12 @@ $(document).ready(function () {
 
                         }
                         if(event.keyCode == 39) {
+                            event.preventDefault();
                             $('#right').attr('src', '/static/img/arrows/right2.png')
                             setTimeout(function() {
                                 $('#right').attr('src', '/static/img/arrows/staticRight.png')
                             }, 100)
                             if (arrowManager.notes[0].direction == "right" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 30) {
-                                event.preventDefault();
                                 $('#right').attr('src', '/static/img/arrows/right3.png')
                                 setTimeout(function() {
                                     $('#right').attr('src', '/static/img/arrows/staticRight.png')
