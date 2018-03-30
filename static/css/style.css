@@ -19,6 +19,7 @@ body {
 	height: 500px;
 	width: 500px;
 	text-align: center;
+<<<<<<< HEAD
 }
 
 .stage2 {
@@ -88,6 +89,9 @@ button,
 	button:hover,
 	.button:hover {
 		background-color: rgba(255, 255, 255, 0.075);
+=======
+	display: inline-block;
+>>>>>>> a321a48ab4c37be1e03120f77af024ffffd9cb51
 	}
 
 	input[type="submit"]:active,
