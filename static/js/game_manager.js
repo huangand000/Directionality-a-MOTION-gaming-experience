@@ -11,7 +11,7 @@ $(document).ready(function () {
     })
     var song = '';
     $('#start').on('click', function() {
-        document.getElementById("line").style.display="block";
+        // document.getElementById("line").style.display="block";
         document.getElementById("stageL").style.display="inline-block";
         document.getElementById("controlL").style.display="block";
         document.getElementById("stageR").style.display="inline-block";
@@ -91,10 +91,9 @@ $(document).ready(function () {
                         $('#audio')[0].pause();
                         $('#audio')[0].currentTime = 0;
                         clearInterval(loop)
-                        $('#line').attr('border', 'none')
                         $('#start').attr('disabled', false);
                         $('#start').html('Play Again');
-                        document.getElementById("line").style.display="none";
+                        // document.getElementById("line").style.display="none";
 
                         document.getElementById("stageL").style.display="none";
                         document.getElementById("controlL").style.display="none";
@@ -218,7 +217,7 @@ $(document).ready(function () {
                         if (arrowManager.notes[0].direction == "right" && arrowManager.notes[0].image.position().top > 0 && arrowManager.notes[0].image.position().top < 45) {
                             $('#right').attr('src', '/static/img/arrows/right3.png')
                                 setTimeout(function() {
-                                    $('#right').attr('src', '/static/img/arrows/sright2.png')
+                                    $('#right').attr('src', '/static/img/arrows/right2.png')
                             }, 200)
                         }
                     } 
