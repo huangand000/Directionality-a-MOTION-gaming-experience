@@ -130,6 +130,10 @@ io.sockets.on('connection', function (socket) {
         socket.on("myScore", function(score) {
             socket.broadcast.to(params.room_name).emit('getScore', {score: score.score})
         })
+        socket.on("sendChart2", function(hitTypes) {
+            console.log('creating chart 2 types', hitTypes);
+            socket.broadcast.to(params.room_name).emit('createChart2', hitTypes)
+        })
         socket.on("gameStart", function (id){
             count++;
             console.log(count)

@@ -19,6 +19,8 @@ $(document).ready(function () {
         document.getElementById("type2").style.display="block";
         document.getElementById("scoreboard").style.display="block";
         document.getElementById("myChart").style.display="none";
+        document.getElementById("myChart2").style.display="none";
+
         if ($('#song').val() == 'Walk it like I Talk it') {
             $('#thisSong').attr('src', '/static/img/walk.mp3')
             $("#audio")[0].load();
@@ -81,6 +83,7 @@ $(document).ready(function () {
                             game.updateBoard();
                         }
                     } else {
+                        socket.emit('sendChart2', game.hitTypes);
                         $('#timer').html('');
                         $('#type').html('');
                         $('#type2').html('');
@@ -299,5 +302,44 @@ $(document).ready(function () {
                 }
             });
         }       
+    })
+    socket.on('createChart2', function(hitTypes) {
+        console.log('hittypessssss!!', hitTypes)
+        document.getElementById("myChart2").style.display="inline-block";
+        // create chart
+        var ctx = document.getElementById("myChart2").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Miss", "Bad", "Cool", "Good", "Great", "Perfect"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [hitTypes['MISS'], hitTypes['BAD'], hitTypes['COOL'], hitTypes['GOOD'],hitTypes['GREAT'], hitTypes['PERFECT']],
+                    backgroundColor: [
+                        'rgb(124, 121, 122, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(124, 121, 122, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                legend:{display: true,labels:{fontSize:20}},
+
+            }
+        });
     })
 });
