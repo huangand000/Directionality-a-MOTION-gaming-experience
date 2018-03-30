@@ -128,11 +128,10 @@ window.gest = (function (window) {
 			video.height = 225;
 			video.setAttribute('style', '-webkit-transform: scaleX(-1); transform: scaleX(-1);'); //mirrors the video
 			// video.setAttribute('style', 'visibility: hidden')
-			
-			document.getElementById("webcamstage").appendChild(video);
+			document.body.appendChild(video);
 
 			canvas.setAttribute('style', 'width: 300px; display: none;');
-			document.getElementById("webcamstage").appendChild(canvas);
+			document.body.appendChild(canvas);
 			context = canvas.getContext('2d');
 		} else {
 			throwError(0);
