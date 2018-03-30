@@ -1,7 +1,7 @@
 /**************/
 /*** CONFIG ***/
 /**************/
-
+var port = process.env.PORT || 8000;
 
 /*************/
 /*** SETUP ***/
@@ -46,8 +46,8 @@ var rooms = {}
 
 //io.set('log level', 2);
 
-var server = app.listen(8000, function() {
-    console.log("Listening on port on 8000");
+var server = app.listen(port, function() {
+    console.log("Listening on port on " + port);
 });
 //app.use(express.bodyParser());
 
