@@ -11,8 +11,6 @@ var http = require('http');
 var app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: true}));
-const session = require('express-session');
-app.use(session({secret: 'codingdojo'}));
 var server = http.createServer(app)
 var mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/ddrdb');
