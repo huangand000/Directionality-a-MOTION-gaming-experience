@@ -35,8 +35,12 @@
 		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
 	</head>
 	<body>
+			<!-- <video preload="auto"  id="video" autoplay="autoplay" loop="loop" controls muted style="width: 140%; height: 130%; position: relative; bottom: 70px; right: 90px;">
+				<source src="static/img/vid.mp4#t=30,100" type="video/mp4">
+			</video> -->
 		<section id="banner" class="bannervid" data-video='/static/img/vid'>
-		<div class="stage" data-video='/static/img/vid.mp4' style='display: inline-block; background-color: blue;'>
+		<div class="stage" style='display: inline-block; background-color: blue; overflow: hidden'>
+		
 			<h1 id="timer"></h1>
 			<h1 id='score' >0</h1>
 		</div> 
@@ -62,7 +66,7 @@
 			<img id="right" src="/static/img/arrows/staticRight.png">
 		</div> 
 		<audio id='audio'> 
-			<source src='/static/img/music.mp3' type='audio/mpeg'>
+			<source id='thisSong' src='' type='audio/mpeg'>
 		</audio>
 		<h1 id="type" style='color:red; position:relative; bottom: 800px; left: 200px;' ></h1>
 		<h1 id="type2" style='color:red; position:relative; bottom: 800px; left: 700px;' ></h1>
@@ -80,12 +84,12 @@
 				<option>normal</option>
 				<option>motion</option>
 			</select>
+			<select id='song'>
+				<option>Freaky Friday</option>
+				<option>Walk it like I Talk it</option>
+			</select>
 			<button id='start'>Start</button>
 		</div>
 		<canvas id="myChart" width="400" height="400"></canvas>
-
-		<script>
-
-		</script>
 	</body>
 </html>
