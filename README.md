@@ -1,4 +1,4 @@
-DIRECTIONALITY a MOTION gaming experience
+DIRECTIONALITY - a MOTION gaming experience
 ============
 
 A web-based game built with Node.js using the Express framework and Socket.IO to recreate Dance Dance Revolution with Motion Detection, Voice Recognition and modern visual customizations.
