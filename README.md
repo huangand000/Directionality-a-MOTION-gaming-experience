@@ -4,6 +4,7 @@ DIRECTIONALITY a MOTION gaming experience
 A web-based game built with Node.js using the Express framework and Socket.IO to recreate Dance Dance Revolution with Motion Detection, Voice Recognition and modern visual customizations.
 
 Features:
+========
 -  Implemented Motion Detection with Gest.js library to match the direction of game arrows
 -  Added Voice Detection with SpeechRecognition API to select game difficulty, mode, song selection
 -  Usage of WebSockets to include real-time multiplayer functionality
